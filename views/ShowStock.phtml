@@ -1,0 +1,148 @@
+
+
+<!-- Modal de confirmation de suppression d'article, script modal.js -->
+<div id="dialog-confirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-confirm-title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dialog-confirm-title">Confirmation de la suppression</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Etes-vous sûr de vouloir supprimer cet élément ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="confirm-yes">Confirmer</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="container">
+        <div class="row mx-auto col-sm-12 col-md-9 col-lg-7">
+
+            <table class="table mt-5 mb-5 border border-danger shadow-lg">
+                <thead>
+                    <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Reference</th>
+                    <th scope="col">Prix_HT</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Stock_alerte</th>
+                    <th scope="col">Taux_TVA</th>
+                    </tr>
+                </thead>
+
+<?php
+
+foreach($result as $res){
+
+echo    '
+
+                <tbody>
+                    <tr '.($res->isAlerteStock() ? 'class="bg-danger"' : '').'>
+                        <td>'.$res->getId_Produit().'</td>
+                        <td>'.$res->getDesignation().'</td>
+                        <td>'.$res->getReference().'</td>
+                        <td>'.$res->getPrixHT().'</td>
+                        <td>'.$res->getStock().'</td>
+                        <td>'.$res->getStock_alerte().'</td>
+                        <td>'.$res->getTva().'</td>
+                    </tr>
+                </tbody>
+               
+            ';
+}
+?>
+
+            </table>
+                
+        </div>
+    </div>
+
+
+
+
+        
+    <div class="container">
+        <div class="row mx-auto">
+
+            <form class="form-group" action="Stock\updateProduit" method="POST">
+
+                <table class="table mt-5 mb-5 border border-danger shadow-lg">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">Reference</th>
+                        <th scope="col">Prix_HT</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Stock_alerte</th>
+                        <th scope="col">Taux_TVA</th>
+                        <th scope="col">Supprimer</th>
+                        </tr>
+                    </thead>
+
+<?php
+$ii =0;
+foreach($result as $res){
+
+echo '
+    <tbody>
+        <tr '.($res->isAlerteStock() ? 'class="bg-danger"' : '').'>
+            <td><input type="text" class="form-control" name="field['.$ii.'][id_produit]" value="'.$res->getId_produit().'" readonly="readonly"/></td>
+            <td><input type="text" class="form-control" name="field['.$ii.'][designation]" value="'.$res->getDesignation().'"></td>
+            <td><input type="text" class="form-control" name="field['.$ii.'][reference]" value="'.$res->getReference().'"></td>
+            <td><input type="text" class="form-control" name="field['.$ii.'][price_ht]" value="'.$res->getPrixHT().'"></td>
+            <td><input type="text" class="form-control" name="field['.$ii.'][stock]" value="'.$res->getStock().'"></td>
+            <td><input type="text" class="form-control" name="field['.$ii.'][alerte]" value="'.$res->getStock_alerte().'"></td>
+            <td><input type="text" class="form-control" name="field['.$ii.'][id_tva]" value="'.$res->getTva().'"></td> 
+            <td><a class="confirmModal btn btn-secondary mb-3 form-control" href="Stock/deleteProduit/'.$res->getId_produit().'" ><i class="bi bi-trash3"></i></a></td>
+        </tr>
+    </tbody>
+';
+++$ii;
+}
+?>
+
+                </table>
+                 <input type="submit" class="form-control mb-5 bg-danger" value="Enregistrer les modifications">
+            </form>
+
+        </div>
+    </div>
+
+
+    <!-- TODO script public .. ne marche pas -->
+    <!-- <script src="../public/modal.js"></script> -->
+
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+  var theHREF;
+
+  $('#dialog-confirm').on('show.bs.modal', function (event) {
+    var modal = $(this);
+    modal.find('.modal-body p').text('Etes-vous sûr de vouloir supprimer cet élément ?');
+    modal.find('#confirm-yes').click(function() {
+      modal.modal('hide');
+      window.setTimeout(function(){
+        window.location.href = theHREF;
+      }, 100);
+    });
+  });
+
+  $("a.confirmModal").click(function(e) {
+    e.preventDefault();
+    theHREF = $(this).attr("href");
+    $('#dialog-confirm').modal('show');
+  });
+});
+
+</script>
