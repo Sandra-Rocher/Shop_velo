@@ -89,13 +89,27 @@ class Employee extends Human{
         ($insert->execute(array($id)));
     }
 
+    
 
-    public function findEmployeeForConnexion($prenomEmp)
+    public function findEmployeeForConnexion($prenom)
     {
         $select = $this->bdd->prepare("SELECT * FROM personnel WHERE prenom = ?");
-        $select->execute(array($prenomEmp));
+        $select->execute(array($prenom));
 
         return $select->fetch();
+    }
+
+
+    public function checkPasswordFromEmployee($result, $pass)
+    {
+        if (password_verify($pass, $result["id_password"])) {
+            $_SESSION["id"] = $result["id"];
+            $_SESSION["role"] = $result["id_role"];
+            $_SESSION["prenom"] = $result["prenom"];
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

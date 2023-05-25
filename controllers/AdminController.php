@@ -61,6 +61,13 @@ class AdminController{
         
                 //Si aucun $_POST n'a été fait : il arrive direct ici et attends qu'on lui POST qqchose
                 $page = "views/CreatePersonnel.phtml";
+
+
+                $data = new Patron();
+                $result = $data->findAll_Personnel();
+
+                $page = "views/CreatePersonnel.phtml";
+
         
                 require_once "views/Base.phtml";
             }
@@ -97,7 +104,7 @@ class AdminController{
                     exit;
                 }
             
-                    $page = "views/showPersonnel.phtml";
+                    $page = "views/CreatePersonnel.phtml";
             
                     require_once "views/Base.phtml";
                 }

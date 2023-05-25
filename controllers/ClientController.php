@@ -54,6 +54,13 @@ class ClientController{
 
         $page = "views/CreateClient.phtml";
 
+
+        $data= new Client();
+        $result = $data->findAll_Client();
+
+        $page = "views/CreateClient.phtml";
+
+
         require_once "views/Base.phtml";
     }
 
@@ -93,7 +100,7 @@ class ClientController{
             exit;
         }
     
-            $page = "views/showClient.phtml";
+            $page = "views/CreateClient.phtml";
     
             require_once "views/Base.phtml";
         }

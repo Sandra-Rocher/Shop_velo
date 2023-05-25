@@ -7,36 +7,41 @@ use \models\database;
 use \models\employee;
 
 
-class utils{
+class UtilsController{
 
+    private $message;
+    private $bdd;
 
-private $bdd;
 
 //Pour intérroger la base de données mysql
 public function __construct()
     {
         $this->bdd = Database::getPDO();
+
     }
+
 
 
     //fonction connexion des employés
     public function connexion()
     {
-        $prenomEmp = new Employee();
-        $result = $prenomEmp->findEmployeeForConnexion($_POST["prenom"]);
+        $prenom = $_POST['prenom'];
+        $pass = $_POST["pass"];
 
-        if (password_verify($_POST["pass"], $result["id_password"])) {
-            $_SESSION["id"] = $result["id"];
-            $_SESSION["role"] = $result["id_role"];
-            $_SESSION["prenom"] = $result["prenom"];
-            return header("Location: ../Stock/showStock");
+        $result = new Employee;
+        $result->findEmployeeForConnexion($prenom);
+
+
+        $message = $this->message->checkPasswordFromEmployee($result, $pass);
+
+        if ($message) {
+            header("Location: ../Stock/showStock");
         } else {
             echo "Mauvais mot de passe";
             $page = "views/Accueil.phtml";
             require_once "views/Base.phtml";
         }
     }
-
 
 //fonction déconnexion des employés
 public function deconnexion(){
