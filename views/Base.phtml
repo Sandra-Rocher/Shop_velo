@@ -29,42 +29,84 @@
 
 <nav class="navbar navbar-expand-lg bg-body-secondary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="">Connexion</a>
+    <a class="navbar-brand" href=""> <?php if(!empty($_SESSION['id'])) {echo 'Bonjour ' . $_SESSION['prenom']; } else echo 'Connexion';?></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-        <?php if(!isset($_SESSION["id"]) || $_SESSION["id_role"] == 'boss'){ ?> <a class="nav-link" href="Admin/showPersonnels">Personnels</a> <?php } ?>
-        </li>
-        <li class="nav-item">
-        <?php if(!isset($_SESSION["id"]) || $_SESSION["id_role"] == 'boss'){ ?> <a class="nav-link" href="Admin/createPersonnel">Personnel<i class="bi bi-tools"></i></a> <?php } ?>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Stock/showStock">Stock</a>
-        </li>
-        <li class="nav-item">
-          <?php if(!isset($_SESSION["id"]) || $_SESSION["id_role"] == 'boss'){ ?> <a class="nav-link" href ="Stock/createStock">Stock<i class="bi bi-tools"></i> </a> <?php } ?>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Client/showClient">Clients</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Client/createClient">Client<i class="bi bi-tools"></i></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">Factures</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="">Factures++</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Admin/showChiffres">Chiffres</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Utils/deconnexion">Déconnexion</a>
-        </li>
+
+        
+        <?php 
+          if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Admin/showPersonnels">Personnels</a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Admin/createPersonnel">Personnels<i class="bi bi-tools"></i></a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION["id"])) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Stock/showStock">Stock</a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Stock/createStock">Stock<i class="bi bi-tools"></i></a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION["id"])) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Client/showClient">Clients</a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION["id"])) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Client/createClient">Client<i class="bi bi-tools"></i></a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION["id"])) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Invoice/showInvoice">Factures</a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION["id"])) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Invoice/createInvoice">Factures<i class="bi bi-tools"></i></a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION["id"])) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Admin/showSales">Chiffres</a>
+                  </li>'; 
+          } ?>
+
+        <?php 
+          if(!empty($_SESSION['id'])) {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="Utils/deconnexion">Déconnexion</a>
+                  </li>'; 
+          } ?>
+        
       </ul>
     </div>
   </div>

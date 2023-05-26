@@ -35,14 +35,14 @@ class ClientController{
     $client = new Client();
 
     // Récupérer les données du formulaire
-    $client->setLastname($_POST['lastname']);
-    $client->setFirstname($_POST['firstname']);
-    $client->setAdress1($_POST['adress1']);
-    $client->setAdress2($_POST['adress2']);
-    $client->setPostal_code($_POST['postal_code']);
-    $client->setCity($_POST['city']);
-    $client->setEmail($_POST['email']);
-    $client->setPhone($_POST['phone']);
+    $client->setLastname(htmlspecialchars($_POST['lastname']));
+    $client->setFirstname(htmlspecialchars($_POST['firstname']));
+    $client->setAdress1(htmlspecialchars($_POST['adress1']));
+    $client->setAdress2(htmlspecialchars($_POST['adress2']));
+    $client->setPostal_code(htmlspecialchars($_POST['postal_code']));
+    $client->setCity(htmlspecialchars($_POST['city']));
+    $client->setEmail(filter_var(htmlspecialchars($_POST['email'])), FILTER_VALIDATE_EMAIL);
+    $client->setPhone(htmlspecialchars($_POST['phone']));
 
     // Appeler la fonction addClient() pour ajouter le client
     $client->addClient();
@@ -81,15 +81,15 @@ class ClientController{
                 $client = new Client();
             
                 // Récupérer les données du formulaire pour chaque field
-                $client->setId($field['id_client']);
-                $client->setLastname($field['lastname']);
-                $client->setFirstname($field['firstname']);
-                $client->setAdress1($field['adress1']);
-                $client->setAdress2($field['adress2']);
-                $client->setPostal_code($field['postal_code']);
-                $client->setCity($field['city']);
-                $client->setEmail($field['email']);
-                $client->setPhone($field['phone']);
+                $client->setId(htmlspecialchars($field['id_client']));
+                $client->setLastname(htmlspecialchars($field['lastname']));
+                $client->setFirstname(htmlspecialchars($field['firstname']));
+                $client->setAdress1(htmlspecialchars($field['adress1']));
+                $client->setAdress2(htmlspecialchars($field['adress2']));
+                $client->setPostal_code(htmlspecialchars($field['postal_code']));
+                $client->setCity(htmlspecialchars($field['city']));
+                $client->setEmail(htmlspecialchars($field['email']));
+                $client->setPhone(htmlspecialchars($field['phone']));
             
                 // update le/les client(s) avec la fonction updateclient situé dans la classe client
                 $client->updateClient();

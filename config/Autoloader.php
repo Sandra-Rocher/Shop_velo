@@ -5,7 +5,9 @@ class Autoloader
 
     public static function Autoload()
     {
-
+        
+        session_start();
+        
         // il va attraper un $classname et le callback
         spl_autoload_register(function ($classname) {
 

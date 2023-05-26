@@ -57,7 +57,7 @@ class Employee extends Human{
                                         FROM facture
                                         WHERE MONTH(dateFact) = MONTH(CURDATE()) 
                                         AND id_personnel = ?");
-        $select->execute($id);
+        $select->execute(array($id));
 
         return $select->fetchAll();
 
@@ -75,7 +75,7 @@ class Employee extends Human{
                                         AND dateFact >= CONCAT(YEAR(CURDATE()), '-01-01')
                                         AND dateFact <= CURDATE() 
                                         AND id_personnel = ?");
-        $select->execute($id);
+        $select->execute(array($id));
 
         return $select->fetchAll();
     }

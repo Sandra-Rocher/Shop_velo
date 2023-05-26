@@ -14,7 +14,7 @@ class AdminController{
     public function index(){
 
         
-        session_start();
+        // session_start();
 
         //Je mets dans la variable $page ce que contient accueil.phtml situé dans le dossier views
         $page = "views/Accueil.phtml";
@@ -41,14 +41,14 @@ class AdminController{
 
             // Vérifier si des données ont été soumises via POST
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
             // Créer une instance de la classe Personnel
             $personnel = new Employee();
         
             // Récupérer les données du formulaire
-            $personnel->setFirstname($_POST['firstname']);
-            $personnel->setRole($_POST['role']);
-            $personnel->setPass($_POST['pass']);
-            
+            $personnel->setFirstname(htmlspecialchars($_POST['firstname']));
+            $personnel->setRole(htmlspecialchars($_POST['role']));
+            $personnel->setPass(password_hash(htmlspecialchars($_POST['pass']), PASSWORD_DEFAULT));
         
             // Appeler la fonction addClient() dans Patron() pour ajouter le Personnel
             $patron= new Patron();
@@ -83,7 +83,7 @@ class AdminController{
                     // Appeler la fonction addClient() pour ajouter le Personnel
                     $patron= new Patron();
 
-                    $fields = $_POST['field'];
+                    $fields = ($_POST['field']);
 
                     foreach ($fields as $field){
 
@@ -91,9 +91,9 @@ class AdminController{
                         $personnel = new Employee();
                     
                         // Récupérer les données du formulaire
-                        $personnel->setId($field['id_personnel']);
-                        $personnel->setFirstname($field['firstname']);
-                        $personnel->setRole($field['role']);
+                        $personnel->setId(htmlspecialchars($field['id_personnel']));
+                        $personnel->setFirstname(htmlspecialchars($field['firstname']));
+                        $personnel->setRole(htmlspecialchars($field['role']));
                         
                         $patron->updatePersonnel($personnel);
                     }
@@ -128,7 +128,7 @@ class AdminController{
 
 
     
-            public function showChiffres(){
+            public function showSales(){
 
                 $data = new Patron();
                 $salesOfTheDay = $data->getSalesOfTheDay();
@@ -138,8 +138,12 @@ class AdminController{
                 $SalesByEmployeesByMonth = $data->getSalesByEmployeesByMonth();
                 $SalesByEmployeesByYear = $data->getSalesByEmployeesByYear();
 
-    
-                $page = "views/Chiffres.phtml";
+                $data2 = new Employee();
+                $id = $_SESSION['id'];
+                $SalesOfTheMonth = $data->getSalesOfTheMonth($id);
+                $SalesOfTheYear = $data->getSalesOfTheYear($id);
+
+                $page = "views/showSales.phtml";
                  
                 require_once "views/Base.phtml";
             }

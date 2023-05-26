@@ -9,12 +9,12 @@ use \models\employee;
 
 class UtilsController{
 
-    private $message;
+
     private $bdd;
 
 
-//Pour intérroger la base de données mysql
-public function __construct()
+    //Pour intérroger la base de données mysql
+    public function __construct()
     {
         $this->bdd = Database::getPDO();
 
@@ -25,16 +25,13 @@ public function __construct()
     //fonction connexion des employés
     public function connexion()
     {
-        $prenom = $_POST['prenom'];
-        $pass = $_POST["pass"];
+        $prenom = (htmlspecialchars($_POST['prenom']));
+        $pass = (htmlspecialchars($_POST["pass"]));
 
-        $result = new Employee;
-        $result->findEmployeeForConnexion($prenom);
+        $myEmployee = new Employee;
+        $result = $myEmployee->findEmployeeForConnexion($prenom);
 
-
-        $message = $this->message->checkPasswordFromEmployee($result, $pass);
-
-        if ($message) {
+        if ($myEmployee->checkPasswordFromEmployee($result, $pass)) {
             header("Location: ../Stock/showStock");
         } else {
             echo "Mauvais mot de passe";
@@ -43,16 +40,14 @@ public function __construct()
         }
     }
 
-//fonction déconnexion des employés
-public function deconnexion(){
 
-    session_destroy();
-    header('Location: ../velo/index.php');
-    die();
-}
-
-
-
+    //fonction déconnexion des employés
+    public function deconnexion()
+    {
+        session_destroy();
+        header('Location: ../Admin/index');
+        die();
+    }
 
 
 }

@@ -43,12 +43,12 @@ class StockController{
             $produit = new Produit();
         
             // Récupérer les données du formulaire
-            $produit->setDesignation($_POST['designation']);
-            $produit->setReference($_POST['reference']);
-            $produit->setPrixHT($_POST['price_ht']);
-            $produit->setStock($_POST['stock']);
-            $produit->setStock_alerte($_POST['alerte']);
-            $produit->setTva($_POST['id_tva']);
+            $produit->setDesignation(htmlspecialchars($_POST['designation']));
+            $produit->setReference(htmlspecialchars($_POST['reference']));
+            $produit->setPrixHT(htmlspecialchars($_POST['price_ht']));
+            $produit->setStock(htmlspecialchars($_POST['stock']));
+            $produit->setStock_alerte(htmlspecialchars($_POST['alerte']));
+            $produit->setTva(htmlspecialchars($_POST['id_tva']));
         
         
             // Appeler la fonction addClient() pour ajouter le Produit
@@ -89,13 +89,13 @@ class StockController{
                 $produit = new Produit();
             
                 // Récupérer les données du formulaire
-                $produit->setId_Produit($field['id_produit']);
-                $produit->setDesignation($field['designation']);
-                $produit->setReference($field['reference']);
-                $produit->setPrixHT($field['price_ht']);
-                $produit->setStock($field['stock']);
-                $produit->setStock_alerte($field['alerte']);
-                $produit->setTva($field['id_tva']);
+                $produit->setId_Produit(htmlspecialchars($field['id_produit']));
+                $produit->setDesignation(htmlspecialchars($field['designation']));
+                $produit->setReference(htmlspecialchars($field['reference']));
+                $produit->setPrixHT(htmlspecialchars($field['price_ht']));
+                $produit->setStock(htmlspecialchars($field['stock']));
+                $produit->setStock_alerte(htmlspecialchars($field['alerte']));
+                $produit->setTva(htmlspecialchars($field['id_tva']));
             
                 // Appeler la fonction updateProduit() situé dans la classe Patron déja instancié plus haut pour update le Produit
                 $patron->updateProduit($produit);

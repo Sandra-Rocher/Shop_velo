@@ -1,0 +1,55 @@
+
+
+
+<form class="form-group" action="Invoice\createInvoice" method="POST">
+  <div class="form-group">
+    <label for="produit">Produit :</label>
+    <select class="form-control" id="produit" name="produit">
+    <?php
+        foreach($respro as $resp)
+        echo'
+      <option value="'.$resp['id'].'">'.$resp['designation'].'</option>
+      '; ?>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="quantite">Quantité :</label>
+    <select class="form-control" id="quantite" name="quantite">
+       <?php
+        foreach($resqt as $resq)
+        echo'
+      <option value="'.$resq['id'].'">'.$resq['stock'].'</option>
+      '; ?>
+    </select>
+  </div>
+  <button class="btn btn-primary" onclick="ajouterProduit()">Ajouter un produit</button>
+</form>
+
+
+
+
+
+SELECT *, personnel.prenom AS personnelPrenom, clients.prenom AS clientPrenom, facture.id AS idFact
+FROM facture
+
+JOIN ligne_facture ON facture.id = ligne_facture.id_facture
+JOIN personnel ON facture.id_personnel = personnel.id 
+JOIN clients ON facture.id_client = clients.id
+
+WHERE facture.id = 7
+
+
+
+
+
+SELECT *, produits.price_ht AS produitPrixHT  
+FROM ligne_facture
+
+JOIN produits ON ligne_facture.id_produits = produits.id
+WHERE id_facture = 7
+
+
+
+
+
+
