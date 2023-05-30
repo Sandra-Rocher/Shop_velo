@@ -122,7 +122,6 @@ class AdminController{
                 
                 require_once "views/Base.phtml";
             
-                
             }
 
 

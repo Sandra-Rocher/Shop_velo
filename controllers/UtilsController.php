@@ -34,7 +34,7 @@ class UtilsController{
         if ($myEmployee->checkPasswordFromEmployee($result, $pass)) {
             header("Location: ../Stock/showStock");
         } else {
-            echo "Mauvais mot de passe";
+            echo "Mauvais login ou mot de passe";
             $page = "views/Accueil.phtml";
             require_once "views/Base.phtml";
         }

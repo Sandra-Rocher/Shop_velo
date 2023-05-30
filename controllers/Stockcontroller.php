@@ -121,8 +121,7 @@ class StockController{
         exit;
         
         require_once "views/Base.phtml";
-    }
-            
+    } 
 }
 
 

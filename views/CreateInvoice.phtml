@@ -1,55 +1,144 @@
 
 
 
-<form class="form-group" action="Invoice\createInvoice" method="POST">
-  <div class="form-group">
-    <label for="produit">Produit :</label>
-    <select class="form-control" id="produit" name="produit">
-    <?php
-        foreach($respro as $resp)
-        echo'
-      <option value="'.$resp['id'].'">'.$resp['designation'].'</option>
-      '; ?>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="quantite">Quantité :</label>
-    <select class="form-control" id="quantite" name="quantite">
-       <?php
-        foreach($resqt as $resq)
-        echo'
-      <option value="'.$resq['id'].'">'.$resq['stock'].'</option>
-      '; ?>
-    </select>
-  </div>
-  <button class="btn btn-primary" onclick="ajouterProduit()">Ajouter un produit</button>
-</form>
+
+<div class="container">
+    <div class="row">
+
+            <div class="container col-sm-12 col-md-8 col-lg-4 border border-danger shadow-lg mb-5 mt-5">
+                <div class="row">
+                    <div class="text-center mt-4">
+                        <h2 class="text-center">Créer la facture</h2>
+                            <form class="form-group" method="POST" action="Invoice\createInvoice">
+                                <div class="d-grid gap-2 mx-auto mt-4">
+
+
+                                <label for="client">Pour quel client ?</label>
+                                  <select class="form-control" id="client" name="client">
+                                    <option value="">Choisissez le client :</option>
+                                    <?php
+                                      foreach($result2 as $res2)
+                                      echo'
+                                      <option value="'.$res2['id'].'">'.$res2['nom'].' '.$res2['prenom'].'</option>
+                                      '; 
+                                    ?>
+                                  </select>
+
+
+                                <label for="produit">Quel produit voulez vous ?</label>
+                                  <select class="form-control" id="produit" name="produit" onchange="updateQuantity(this.value)">
+                                    <option value="">Choisissez le produit :</option>
+                                    <?php
+                                      foreach($result as $res)
+                                      echo'
+                                      <option value="'.$res['id'].'">'.$res['designation'].'</option>
+                                      '; 
+                                    ?>
+                                  </select>
+                            
+                              <label for="quantite">Combien en voulez vous ?</label>
+                                <select class="form-control" id="quantite" name="quantite">
+
+                                </select>
+
+                                </div>
+                                <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+                                <span class="btn btn-danger" onclick="ajouterProduit(produit.value, produit.options[produit.selectedIndex].text, quantite.options[quantite.selectedIndex].text)">Ajouter ce produit</span>
+                                </div>
+                                <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+                                  <button class="btn btn-danger mb-4">Valider la Facture</button>
+                                </div>
+                            </form>
+                            
+                    </div>
+                </div>
+            </div>
+                 
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="row">
+            <div class="container border border-danger shadow-lg mb-5 mt-5">
+                <div class="row">
+                    <div class="text-center mt-4 mb-4">
+                        <h2 class="text-center mb-4">Votre facture :</h2>
+
+                          <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Designation</th>
+                                <th scope="col">Quantité</th>
+                                <th scope="col">Prix_HT</th>
+                                <th scope="col">Prix_TTC</th>
+                                <th scope="col">Total Prix_HT</th>
+                                <th scope="col">Total Prix_TTC</th>
+                              </tr>
+                            </thead>
+                            <tbody id="invoiceTable">
+
+                            <!-- exemple de ce qui va s'afficher -->
+                              <!-- <tr>
+                                <th scope="row">1</th>
+                                <td>selle</td>
+                                <td>2</td>
+                                <td>55.00</td>
+                                <td>60.00</td>
+                                <td>110.00</td>
+                                <td>220.00</td>
+                              </tr> -->
+                            
+                            </tbody>
+                          </table>
+                                                      
+                    </div>
+                </div>
+            </div>     
+    </div>
+</div>
 
 
 
 
 
-SELECT *, personnel.prenom AS personnelPrenom, clients.prenom AS clientPrenom, facture.id AS idFact
-FROM facture
-
-JOIN ligne_facture ON facture.id = ligne_facture.id_facture
-JOIN personnel ON facture.id_personnel = personnel.id 
-JOIN clients ON facture.id_client = clients.id
-
-WHERE facture.id = 7
+<script>
 
 
-
-
-
-SELECT *, produits.price_ht AS produitPrixHT  
-FROM ligne_facture
-
-JOIN produits ON ligne_facture.id_produits = produits.id
-WHERE id_facture = 7
+function updateQuantity(produitId) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        document.getElementById('quantite').innerHTML = this.responseText;
+    }
+    xhttp.open("GET", "/velo/Invoice/updateQuantity/"+produitId, true);
+    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhttp.send();
+    
+}
 
 
 
+function ajouterProduit(IDproduit, designation, quantity) {
+  if (quantity == "") {
+    document.getElementById("invoiceTable").innerHTML = "";
+    return;
+  }
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    var myTable = $('#invoiceTable');
+    myTable.append(this.responseText);
+  }
+  xhttp.open("GET", "/velo/Invoice/addProductsOnInvoice/"+IDproduit+";"+designation+";"+quantity, true);
+  xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  xhttp.send();
+}
+  
+
+
+</script>
 
 
 

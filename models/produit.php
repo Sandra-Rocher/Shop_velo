@@ -170,6 +170,16 @@ class Produit
         return $this->prixHT * $this->tva;
     }
 
+    public function calculateTotalHT($quantite)
+    {
+        return $this->prixHT * $quantite;
+    }
+
+    public function calculateTotalTTC($resultTTC, $quantite)
+    {
+        return $resultTTC * $quantite;
+    }
+
 
     public function isAlerteStock()
     {

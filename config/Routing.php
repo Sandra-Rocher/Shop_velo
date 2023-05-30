@@ -15,9 +15,17 @@ class Routing
     public function get()
     {
 
-
         // si il y a ctrl dans l'url : je fais 
         if (isset($_GET['ctrl'])) {
+
+
+// if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_x_REQUESTED_WITH']) == 'xmlhttprequest') {
+// echo 'zoub';
+// die();
+// }
+
+
+
 
             // comme on get dans l url ce qu'il y a apres ctrl, on htmlspecialchars 
             $url = htmlspecialchars($_GET["ctrl"]);
@@ -55,13 +63,24 @@ class Routing
 
                 if (isset($newUrl[2])) {
 
-                    $id = $newUrl[2];
+                    $newUrlExploded = explode(";", $newUrl[2]);
+                    if (count($newUrlExploded) == 3){
+                        $arg1 = $newUrlExploded[0];
+                        $arg2 = $newUrlExploded[1];
+                        $arg3 = $newUrlExploded[2];
 
-                    $controller->$methodName($id);
+                        $controller->$methodName($arg1, $arg2, $arg3);
+
+                    } else if  (count($newUrlExploded) == 1)  {
+
+                        $id = $newUrl[2];
+                        
+                        $controller->$methodName($id);
+                    }
+                
                 } else {
                     $controller->$methodName();
                 }
-                
 
                 // au final on a taper la meme chose que dans le else (car on avait que index a afficher après tout)
                 // on a donc la méthode simple et facile else (en dessous) qui dit va chercher la page admincontroller 
@@ -77,7 +96,7 @@ class Routing
                 // et controller->methodName = ->index
 
             } else {
-                echo "error 404";
+                echo "error 404 ctrl " .$_GET["ctrl"];
             }
         } else {
             // sinon : je dirige vers l accueil normal puisque l url affiche lcoalhost shop/ vide. On affichera donc la 
