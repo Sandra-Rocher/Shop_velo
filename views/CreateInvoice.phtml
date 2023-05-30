@@ -1,7 +1,5 @@
 
 
-
-
 <div class="container">
     <div class="row">
 
@@ -43,7 +41,12 @@
 
                                 </div>
                                 <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
-                                <span class="btn btn-danger" onclick="ajouterProduit(produit.value, produit.options[produit.selectedIndex].text, quantite.options[quantite.selectedIndex].text)">Ajouter ce produit</span>
+                                    <span class="btn btn-danger" onclick="ajouterProduit(produit.value, 
+                                    produit.options[produit.selectedIndex].text, 
+                                    quantite.options[quantite.selectedIndex].text);
+                                    ">
+                                    Ajouter ce produit
+                                    </span>
                                 </div>
                                 <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
                                   <button class="btn btn-danger mb-4">Valider la Facture</button>
@@ -67,16 +70,20 @@
                     <div class="text-center mt-4 mb-4">
                         <h2 class="text-center mb-4">Votre facture :</h2>
 
-                          <table class="table table-hover">
+                        <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+                            <span class="btn btn-danger" onclick="reinitialiser()">Recommencer la facture</span>
+                          </div>
+
+                          <table id ="tableSUM" class="table table-hover">
                             <thead>
                               <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Designation</th>
                                 <th scope="col">Quantité</th>
-                                <th scope="col">Prix_HT</th>
-                                <th scope="col">Prix_TTC</th>
-                                <th scope="col">Total Prix_HT</th>
-                                <th scope="col">Total Prix_TTC</th>
+                                <th scope="col">Prix unitaire HT</th>
+                                <th scope="col">Prix unitaire TTC</th>
+                                <th scope="col">Total Prix HT</th>
+                                <th scope="col">Total Prix TTC</th>
                               </tr>
                             </thead>
                             <tbody id="invoiceTable">
@@ -84,15 +91,31 @@
                             <!-- exemple de ce qui va s'afficher -->
                               <!-- <tr>
                                 <th scope="row">1</th>
-                                <td>selle</td>
-                                <td>2</td>
-                                <td>55.00</td>
-                                <td>60.00</td>
-                                <td>110.00</td>
-                                <td>220.00</td>
-                              </tr> -->
+                                  <td>selle</td>
+                                  <td>2</td>
+                                  <td>55.00</td>
+                                  <td>60.00</td>
+                                  <td>110.00</td>
+                                  <td>220.00</td>
+                                </tr> -->
+
+                               <!-- a chaque click nouvelle ligne contenant de nouveau un th td td td th.. -->
                             
-                            </tbody>
+                               <tfoot>
+                                <tr>
+                                  <th colspan="5"></th>
+                                  <th scope="row">Total HT :</th>
+                                  <th scope="row">Total TTC :</th>
+                                  <td></td>
+                                </tr>
+                              
+                                <tr>
+                                  <td colspan="5"></td>
+                                  <td id="totalityHT">0 €</td>
+                                  <td id="totalityTTC">0 €</td>
+                                </tr>
+                               
+                              </tfoot>
                           </table>
                                                       
                     </div>
@@ -107,7 +130,7 @@
 
 <script>
 
-
+//Fonction pour qu'au click sur un produit par sa designation/id, affiche la quantité présente dans la bdd 
 function updateQuantity(produitId) {
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
@@ -120,22 +143,72 @@ function updateQuantity(produitId) {
 }
 
 
-
+//Fonction pour qu'au click les valeurs du produit selectionné et sa quantité soit envoyé pour remplir les cases de la futur facture
+//produit.value = name produit qui donnera un id/ produit.option.text = designation, l'option selectionnée dans la liste déroulante/
+// quantite.value = le name de quantite
 function ajouterProduit(IDproduit, designation, quantity) {
+  //S'il n'y a rien dans le select, on ne fait rien
   if (quantity == "") {
     document.getElementById("invoiceTable").innerHTML = "";
     return;
   }
+  //Sinon, on va ajouter (append) le produit dans la facture (dans le tbody id="invoiceTable")
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function() {
     var myTable = $('#invoiceTable');
     myTable.append(this.responseText);
+    
+    //Une fois qu'on à la réponse append, on déclenche de la fonction qui fera le calcul total de la facture par apport aux appends
+    calculateTotal();
   }
   xhttp.open("GET", "/velo/Invoice/addProductsOnInvoice/"+IDproduit+";"+designation+";"+quantity, true);
   xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   xhttp.send();
 }
+
   
+//Fonction pour vider la facture et recommencer du début : invoicetable = les lignes de la facture : j'efface tout "", 
+//et les 2 totality sont les totaux finaux je remet "0 €"
+function reinitialiser() {
+  document.getElementById("invoiceTable").innerHTML = "";
+  document.getElementById("totalityHT").innerHTML = "0 €";
+  document.getElementById("totalityTTC").innerHTML = "0 €";
+}
+
+
+
+//Calcul le total HT et TTC de la facture, et le mets tout en bas de la table
+function calculateTotal() {
+  
+  //On part de 0
+  var totalHT = 0;
+  var totalTTC = 0;
+
+  //Boucle for each dans la table id="tableSUM" dans le tbody la 6 eme ligne des td. 
+  //Parsefloat pour convertir les valeurs en nombres décimaux
+   // isNaN pour verifier si la valeur est de type Not a Number
+   //Si c'est bon on acrémente les totalHT ou totalTTC qui partent de 0
+  $("#tableSUM tbody td:nth-child(6)").each(function() {
+    var valueHT = parseFloat($(this).html());
+    if (!isNaN(valueHT)) {
+      totalHT += valueHT;
+    }
+  });
+
+  $("#tableSUM tbody td:nth-child(7)").each(function() {
+    var valueTTC = parseFloat($(this).html());
+    if (!isNaN(valueTTC)) {
+      totalTTC += valueTTC;
+    }
+  });
+
+  //toFixed(2)pour afficher les valeurs avec deux décimales
+  $("#totalityHT").text(totalHT.toFixed(2) + " €");
+  $("#totalityTTC").text(totalTTC.toFixed(2) + " €");
+
+
+}
+
 
 
 </script>

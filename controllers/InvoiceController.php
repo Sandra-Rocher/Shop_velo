@@ -79,20 +79,32 @@ class InvoiceController{
         $data->setTva($result['id_tva']);
         $resultTTC = $data->calculateTTC();
 
-        $calculht = $result['price_ht']->calculateTotalHT($quantity);
-        $calculttc = $resultTTC->calculateTotalTTC($quantity);
+        $data->getTva($result['price_ht']);
+        $calculht = $data->calculateTotalHT($quantity);
+
+        $calculttc = $data->calculateTotalTTC($resultTTC, $quantity);
 
         echo '<tr>
                 <th scope="row">'.$IDproduit.'</th>
                 <td>'.$designation.'</td>
                 <td>'.$quantity.'</td>
-                <td>'.$result['price_ht'].'</td>
-                <td>'.$resultTTC.'</td>
-                <td>'.$calculht.'</td>
-                <td>'.$calculttc.'</td>
+                <td>'.$result['price_ht'].'€</td>
+                <td>'.$resultTTC.'€</td>
+                <td>'.$calculht.'€</td>
+                <td>'.$calculttc.'€</td>
             </tr> ';
+    }
 
-    
+
+    public function totalHT(){
+
+
+    }
+
+
+    public function totalTTC(){
+
+        
     }
 
 }
