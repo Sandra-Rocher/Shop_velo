@@ -15,7 +15,7 @@ class Invoice{
         $this->bdd = Database::getPDO();
     }
 
-
+    //Fonction pour afficher toute les factures
     public function findAll_Invoices()
     {
 
@@ -32,6 +32,24 @@ class Invoice{
     }
 
 
+    //Fonction pour inserer en bdd les factures
+    public function addInvoiceFactOnBDD($totalHT, $totalTTC, $idClient, $idPersonnel)
+    {
+        $insert = $this->bdd->prepare('INSERT INTO facture (prix_ht, prix_ttc, id_client, id_personnel)
+                                        VALUES (?, ?, ?, ?) ');
+        $insert->execute(array($totalHT, $totalTTC, $idClient, $idPersonnel));
+
+        $idFacture = $this->bdd->lastInsertId();
+        return $idFacture;
+    }
+
     
+    //Fonction pour inserer en bdd les lignes des factures
+    public function addInvoiceLigneOnBDD($quantite, $id_produits, $idFacture){
+
+        $insert = $this->bdd->prepare('INSERT INTO ligne_facture (quantite, id_produits, id_facture)
+                                        VALUES (?, ?, ?) ');
+        $insert->execute(array($quantite, $id_produits, $idFacture));
+    }
 
 }

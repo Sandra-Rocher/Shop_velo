@@ -71,6 +71,17 @@ class Routing
 
                         $controller->$methodName($arg1, $arg2, $arg3);
 
+                    } else if (count($newUrlExploded) == 6){
+                        $arg1 = $newUrlExploded[0];
+                        $arg2 = $newUrlExploded[1];
+                        $arg3 = $newUrlExploded[2];
+                        $arg4 = $newUrlExploded[3];
+                        $arg5 = $newUrlExploded[4]; 
+                        $arg6 = $newUrlExploded[5];
+
+                        $controller->$methodName($arg1, $arg2, $arg3, $arg4, $arg5, $arg6);
+
+
                     } else if  (count($newUrlExploded) == 1)  {
 
                         $id = $newUrl[2];

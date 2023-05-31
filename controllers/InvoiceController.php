@@ -22,6 +22,7 @@ class InvoiceController{
     }
 
 
+    //Fonction qui montre toute les factures présente dans la bdd
     public function showInvoice(){
 
         $data = new Invoice;
@@ -34,7 +35,7 @@ class InvoiceController{
     }
 
 
-
+    //Fonction pour afficher toute les produits et les clients afin de pouvoir selectionné quel produit pour quel client
     public function createInvoice(){
 
         $data = new Stock;
@@ -50,6 +51,7 @@ class InvoiceController{
     }
 
 
+    //Fonction qui, lorsque le produit est selectionné, intérroge la bdd et renvoi la quantité disponible
     public function updateQuantity($produitId){
 
         $verif = $this->bdd->prepare('SELECT id, stock FROM `produits`
@@ -66,6 +68,7 @@ class InvoiceController{
 
 
 
+    //Fonction qui ajoute dans un tableau le produit et sa quantité en calculant le HT et le TTC
     public function addProductsOnInvoice($IDproduit, $designation, $quantity){
 
         $verif = $this->bdd->prepare('SELECT * FROM `produits`
@@ -96,22 +99,27 @@ class InvoiceController{
     }
 
 
-    public function totalHT(){
+    
 
 
-    }
+    public function addInvoiceOnBDD($totalHT, $totalTTC, $idClient, $idPersonnel, $quantities, $productIds){
 
-
-    public function totalTTC(){
+        $data = new Invoice();
+        $idFacture = $data->addInvoiceFactOnBDD($totalHT, $totalTTC, $idClient, $idPersonnel);
 
         
+        $data->addInvoiceLigneOnBDD($quantities, $productIds, $idFacture);
+
+
+        $page = "views/ShowInvoice.phtml";
+
+        require_once "views/Base.phtml";
     }
 
+
+
+
 }
-
-
-
-
 
 // SELECT *, personnel.prenom AS personnelPrenom, clients.prenom AS clientPrenom, facture.id AS idFact
 // FROM facture

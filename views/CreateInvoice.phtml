@@ -49,7 +49,7 @@
                                     </span>
                                 </div>
                                 <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
-                                  <button class="btn btn-danger mb-4">Valider la Facture</button>
+                                  <button class="btn btn-danger mb-4" onclick="validerFacture()">Valider la Facture</button>
                                 </div>
                             </form>
                             
@@ -206,9 +206,68 @@ function calculateTotal() {
   $("#totalityHT").text(totalHT.toFixed(2) + " €");
   $("#totalityTTC").text(totalTTC.toFixed(2) + " €");
 
-
 }
 
+
+
+
+function validerFacture() {
+  // Get the values from the form
+  var idClient = document.getElementById("client").value;
+  var idPersonnel = "<?php echo $_SESSION['id']; ?>";
+  var totalHT = document.getElementById("totalityHT").innerText;
+  var totalTTC = document.getElementById("totalityTTC").innerText;
+
+  // Get the product IDs and quantities from the table
+  var productIds = [];
+  var quantities = [];
+
+  // Iterate over each row in the table and extract the product ID and quantity
+  $("#tableSUM tbody tr").each(function() {
+    var productId = $(this).find("th:nth-child(1)").text();
+    var quantity = $(this).find("td:nth-child(3)").text();
+
+    // Add the values to the respective arrays
+    productIds.push(productId);
+    quantities.push(quantity);
+  });
+
+  // Prepare the data to be sent
+  var data = {
+    totalHT,
+     totalTTC,
+     idClient,
+     idPersonnel,
+    quantities,
+    productIds
+  };
+
+
+  alert(JSON.stringify(data));
+
+  // Send the data to the server using AJAX
+  $.ajax({
+    url: "/velo/Invoice/addInvoiceOnBDD",
+    method: "POST",
+    data,
+    success: function(response) {
+      console.log("Success");
+    },
+    error: function(xhr, status, error) {
+      console.log("Error: " + error);
+    }
+  });
+
+  // Debugging: display the retrieved values in the console
+  // console.log("IDClient: " + idClient);
+  // console.log("IDPersonnel: " + idPersonnel);
+  // console.log("Total HT: " + totalHT);
+  // console.log("Total TTC: " + totalTTC);
+  // console.log("Product IDs: " + productIds.join(", "));
+  // console.log("Quantities: " + quantities.join(", "));
+  // console.log(data);
+
+}
 
 
 </script>
