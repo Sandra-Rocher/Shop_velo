@@ -29,7 +29,6 @@ class InvoiceController{
         $result = $data->findAll_Invoices();
 
         $page = "views/ShowInvoice.phtml";
-             
         require_once "views/Base.phtml";
 
     }
@@ -45,7 +44,6 @@ class InvoiceController{
         $result2 = $data->findAll_Client();
 
         $page = "views/CreateInvoice.phtml";
-
         require_once "views/Base.phtml";
 
     }
@@ -99,45 +97,59 @@ class InvoiceController{
     }
 
 
+
+    // public function addInvoiceOnBDD avec $data qui contient : $totalHT, $totalTTC, $idClient, $idPersonnel, $quantities, $productIds
+       public function addInvoiceOnBDD($data) {
+
+         $data2 = json_decode($data, true);
+
+         //Valeurs de TotalHT TotalTCC idClient et IdPersonnel
+        $totalHT = $data2[0];
+        $totalTTC = $data2[1];
+        $idClient = $data2[2];
+        $idPersonnel = $data2[3];
+
+        //Tableau des produits et de leurs quantités 
+        $quantities = $data2[4];
+        $productIds = $data2[5];
     
-
-
-    public function addInvoiceOnBDD($totalHT, $totalTTC, $idClient, $idPersonnel, $quantities, $productIds){
-
-        $data = new Invoice();
-        $idFacture = $data->addInvoiceFactOnBDD($totalHT, $totalTTC, $idClient, $idPersonnel);
-
-        
-        $data->addInvoiceLigneOnBDD($quantities, $productIds, $idFacture);
-
-
-        $page = "views/ShowInvoice.phtml";
-
+        //Creer une nouvelle facture avec les 4 premieres valeurs : $totalHT, $totalTTC, $idClient, $idPersonnel
+        // Prends la valeur de retour (lastInsertId()) stocké dans $idFacture pour la prochaine fonction
+        $invoice = new Invoice();
+        $idFacture = $invoice->addInvoiceFactOnBDD($totalHT, $totalTTC, $idClient , $idPersonnel);
+    
+        //Creer les lignes de facture pour chaque produit + quantité avec l'idfacture (lastInsertId()) qui est revenu
+        // de la fonction addInvoiceFactOnBDD
+        foreach ($quantities as $key => $quantity) {
+            $productId = $productIds[$key];
+            $invoice->addInvoiceLigneOnBDD($quantity, $productId, $idFacture);
+        }
+    
+        //Update le stock pour chaque produit + sa quantité
+        foreach ($quantities as $key => $quantity) {
+            $productId = $productIds[$key];
+            $sold = new Patron();
+            $sold->updateProduitWhenSold($quantity, $productId);
+        }
+    
+        //Redirige
+        $page = "views/showInvoice.phtml";
         require_once "views/Base.phtml";
+     }
+
+
+     //Fonction qui permet de visualiser la facture client au click sur la loupe via l'id facture
+     public function finalyInvoices($id){
+
+        $data = new Invoice;
+        $details = $data->finalyInv($id);
+
+        $page = "views/ShowFinalInvoice.phtml";
+        require_once "views/Base.phtml";
+
     }
 
 
-
-
 }
-
-// SELECT *, personnel.prenom AS personnelPrenom, clients.prenom AS clientPrenom, facture.id AS idFact
-// FROM facture
-
-// JOIN ligne_facture ON facture.id = ligne_facture.id_facture
-// JOIN personnel ON facture.id_personnel = personnel.id 
-// JOIN clients ON facture.id_client = clients.id
-
-// WHERE facture.id = 7
-
-
-
-
-
-// SELECT *, produits.price_ht AS produitPrixHT  
-// FROM ligne_facture
-
-// JOIN produits ON ligne_facture.id_produits = produits.id
-// WHERE id_facture = 7
 
 

@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="text-center mt-4">
                         <h2 class="text-center">Créer la facture</h2>
-                            <form class="form-group" method="POST" action="Invoice\createInvoice">
+                            <form class="form-group" method="POST" onSubmit='validerFacture()' action="Invoice\showInvoice">
                                 <div class="d-grid gap-2 mx-auto mt-4">
 
 
@@ -49,7 +49,7 @@
                                     </span>
                                 </div>
                                 <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
-                                  <button class="btn btn-danger mb-4" onclick="validerFacture()">Valider la Facture</button>
+                                  <button class="btn btn-danger mb-4">Valider la Facture</button>
                                 </div>
                             </form>
                             
@@ -210,30 +210,31 @@ function calculateTotal() {
 
 
 
-
+//Fonction pour que les valeurs idClient + idPersonnel + les articles choisis, leurs quantités, le totalHT et le totalTTC partent en bdd
 function validerFacture() {
-  // Get the values from the form
+  // Récupère toute ses valeurs : dans leurs names value du select, dans la session du connecté, ou dans le text de l'id concerné
   var idClient = document.getElementById("client").value;
   var idPersonnel = "<?php echo $_SESSION['id']; ?>";
   var totalHT = document.getElementById("totalityHT").innerText;
   var totalTTC = document.getElementById("totalityTTC").innerText;
 
-  // Get the product IDs and quantities from the table
+  // Creer 2 tableaux : 1 pour les produits et 1 pour les quantités
   var productIds = [];
   var quantities = [];
 
-  // Iterate over each row in the table and extract the product ID and quantity
+  // Il parcourt la table id : tableSum, dans son tbody il y a un tr: les lignes : premiere ligne de th et la 
+  //3 eme ligne de td et prends le texte  qui correspondent a chaque produit et chaque quantité
   $("#tableSUM tbody tr").each(function() {
     var productId = $(this).find("th:nth-child(1)").text();
     var quantity = $(this).find("td:nth-child(3)").text();
 
-    // Add the values to the respective arrays
+    //Met les valeurs produits et quantités dans leurs tableaux respectifs
     productIds.push(productId);
     quantities.push(quantity);
   });
 
-  // Prepare the data to be sent
-  var data = {
+  // Toute les valeurs sont dans le myData
+  var myData = {
     totalHT,
      totalTTC,
      idClient,
@@ -242,33 +243,26 @@ function validerFacture() {
     productIds
   };
 
-
-  alert(JSON.stringify(data));
-
-  // Send the data to the server using AJAX
+  //On envoie par le GET toute les données en json dans invoice et on déclenche la fonction addInvoiceOnBDD. 
+  //parsefloat nous permets d'avoir 2 decimales après la virgule, number est un chiffre simple, et .map transmets en tableaux
   $.ajax({
-    url: "/velo/Invoice/addInvoiceOnBDD",
-    method: "POST",
-    data,
+    url: "/velo/Invoice/addInvoiceOnBDD/"+JSON.stringify([parseFloat(totalHT), 
+                                                          parseFloat(totalTTC), 
+                                                          new Number(idClient), 
+                                                          new Number(idPersonnel),
+                                                          quantities.map(Number),
+                                                          productIds.map(Number)
+                                                        ]),
+    type:"GET",
     success: function(response) {
-      console.log("Success");
+      console.log("Success: " + JSON.stringify(myData));
     },
     error: function(xhr, status, error) {
       console.log("Error: " + error);
     }
   });
 
-  // Debugging: display the retrieved values in the console
-  // console.log("IDClient: " + idClient);
-  // console.log("IDPersonnel: " + idPersonnel);
-  // console.log("Total HT: " + totalHT);
-  // console.log("Total TTC: " + totalTTC);
-  // console.log("Product IDs: " + productIds.join(", "));
-  // console.log("Quantities: " + quantities.join(", "));
-  // console.log(data);
-
 }
-
 
 </script>
 

@@ -4,6 +4,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?ctrl=$1 [NC,L]
 
+
 # ici, tout ce qui est après ctrl= on le prendras. le $1 le représente
 #ctrl aurait pu s'appeler toto
 

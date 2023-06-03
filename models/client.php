@@ -133,6 +133,7 @@ class Client extends Human{
     }
 
 
+    //Fonction qui affiche tous les clients
     public function findAll_Client()
     {
 
@@ -143,6 +144,7 @@ class Client extends Human{
     }
 
 
+    //Fonction qui ajoute un client
     public function addClient()
     {
         $insert = $this->bdd->prepare('INSERT INTO clients (nom, prenom, adresse1, adresse2, code_postal, ville, email, telephone)
@@ -152,6 +154,7 @@ class Client extends Human{
     }
 
 
+    //Fonction qui supprime un client
     public function deleteClient($id)
     {
         $insert = $this->bdd->prepare('DELETE FROM clients WHERE id = ?');
@@ -159,6 +162,7 @@ class Client extends Human{
 
     }
 
+    //Fonction qui modifie les données d'un client
     public function updateClient()
     {
 

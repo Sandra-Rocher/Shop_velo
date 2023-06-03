@@ -5,10 +5,10 @@
 ?>
 
 
-    <div class="container">
-    <div class="row mx-auto">
+    <div class="container col-lg-7">
+    <div class="row">
         <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes du mois pour <?php echo $_SESSION['prenom']?> :</p>
-            <table class="table mb-5 border border-danger shadow-lg">
+            <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                         <th scope="col">ID_Facture</th>
@@ -44,10 +44,10 @@
 
     
 
-    <div class="container">
-    <div class="row mx-auto">
+    <div class="container col-lg-7">
+    <div class="row">
         <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes de l'année pour <?php echo $_SESSION['prenom']?> :</p>
-            <table class="table mb-5 border border-danger shadow-lg">
+            <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                         <th scope="col">ID_Facture</th>
@@ -92,10 +92,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
     
 
-<div class="container">
-<div class="row mx-auto">
+<div class="container col-lg-7">
+<div class="row">
     <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes du mois pour <?php echo $_SESSION['prenom']?> :</p>
-        <table class="table mb-5 border border-danger shadow-lg">
+        <table class="table mb-5 border border-danger shadow-lg text-center">
             <thead>
                 <tr>
                     <th scope="col">ID_Facture</th>
@@ -131,10 +131,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
 
 
-<div class="container">
-<div class="row mx-auto">
+<div class="container col-lg-7">
+<div class="row">
     <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes de l'année pour <?php echo $_SESSION['prenom']?> :</p>
-        <table class="table mb-5 border border-danger shadow-lg">
+        <table class="table mb-5 border border-danger shadow-lg text-center">
             <thead>
                 <tr>
                     <th scope="col">ID_Facture</th>
@@ -171,7 +171,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 <?php
     foreach($salesOfTheDay as $sal)
         echo' 
-        <div class ="container border border-danger mt-5 mb-5"
+        <div class ="container border border-danger mt-5 mb-5 col-lg-7"
             <div class="row">
                 <p class="text-center fw-bold mt-2 mb-2">Le total des ventes du jour est : '.$sal['Total'].' €</p>
             </div>
@@ -183,10 +183,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
 
 
-<div class="container">
-    <div class="row mx-auto">
+<div class="container col-lg-7">
+    <div class="row">
         <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes par produit :</p>
-            <table class="table mb-5 border border-danger shadow-lg">
+            <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                         <th scope="col">ID_Produit</th>
@@ -216,10 +216,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
 
     
-<div class="container">
-    <div class="row mx-auto">
+<div class="container col-lg-7">
+    <div class="row">
         <p class="text-center fw-bold mt-5">Total TVA collecté par mois :</p>
-            <table class="table mb-5 border border-danger shadow-lg">
+            <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                         <th scope="col">Total_ht</th>
@@ -250,10 +250,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
     
     
-<div class="container">
-    <div class="row mx-auto">
+<div class="container col-lg-7">
+    <div class="row">
         <p class="text-center fw-bold mt-5">Etat cumulé des ventes par produit depuis le premier janvier de l’année en cours :</p>
-            <table class="table mb-5 border border-danger shadow-lg">
+            <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                         <th scope="col">Id_Produit</th>
@@ -283,10 +283,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
 
 
-    <div class="container">
-    <div class="row mx-auto">
+    <div class="container col-lg-7">
+    <div class="row">
         <p class="text-center fw-bold mt-5">Montant total des ventes HT par vendeur par mois :</p>
-            <table class="table mb-5 border border-danger shadow-lg">
+            <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                         <th scope="col">Id_Personnel</th>
@@ -316,10 +316,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
 
     
-    <div class="container">
-    <div class="row mx-auto">
+    <div class="container col-lg-7">
+    <div class="row">
         <p class="text-center fw-bold mt-5">Montant total des ventes HT par vendeur sur l'année depuis le 01 janvier :</p>
-            <table class="table mb-5 border border-danger shadow-lg">
+            <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                         <th scope="col">Id_Personnel</th>

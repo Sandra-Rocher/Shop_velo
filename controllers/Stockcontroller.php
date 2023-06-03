@@ -8,7 +8,6 @@ use \models\produit;
 use \models\patron;
 
 
-
 class StockController{
 
     protected $bdd;
@@ -17,6 +16,7 @@ class StockController{
     {
         $this->bdd = Database::getPDO();
     }
+
 
     //fonction qui montre le stock
     public function showStock(){
@@ -71,6 +71,7 @@ class StockController{
         require_once "views/Base.phtml";
     }
 
+
     //fonction pour modifier un produit
     public function updateProduit(){
 
@@ -107,10 +108,10 @@ class StockController{
         }
         
         $page = "views/createStock.phtml";
-
         require_once "views/Base.phtml";
     }
 
+    
     //fonction pour delete un produit par son $id
     public function deleteProduit($id){
 

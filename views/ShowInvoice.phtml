@@ -4,7 +4,7 @@
 <div class="container">
         <div class="row mx-auto">
 
-            <table class="table mt-5 mb-5 border border-danger shadow-lg">
+            <table class="table mt-5 mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                     <th scope="col">Id</th>
@@ -13,6 +13,7 @@
                     <th scope="col">Prix_TTC</th>
                     <th scope="col">Id_Client</th>
                     <th scope="col">Nom_Client</th>
+                    <th scope="col">Prénom_Client</th>
                     <th scope="col">ID_Personnel</th>
                     <th scope="col">Prenom_Personnel</th>
                     <th scope="col">Voir_facture</th>
@@ -27,15 +28,16 @@ echo    '
 
                 <tbody>
                     <tr>
-                    <td>'.$res['factID'].'</td>
+                    <td>'.$res['idFact'].'</td>
                     <td>'.$res['dateFact'].'</td>
                     <td>'.$res['prix_ht'].'</td>
                     <td>'.$res['prix_ttc'].'</td>
                     <td>'.$res['id_client'].'</td>
                     <td>'.$res['nom'].'</td>
+                    <td>'.$res['12'].'</td>
                     <td>'.$res['id_personnel'].'</td>
                     <td>'.$res['prenom'].'</td>
-                    <td><i class="bi bi-filetype-pdf"></i></td>
+                    <td><a href="#" id="funct" onclick="finalInv('.$res['idFact'].')" class="" data-bs-toggle="modal" data-bs-target="#Facture"><i class="bi bi-search" style="font-size: 18px;"></i></a></td>
                     </tr>
 
                 </tbody>
@@ -47,5 +49,31 @@ echo    '
             </table>
     </div>
 </div> 
+
+<script>
+
+//Fonction pour qu'au click sur un produit par sa designation/id, affiche la quantité présente dans la bdd 
+function finalInv(idFact) {
+    window.location.href = "Invoice/finalyInvoices/"+idFact;
+    
+}
+
+
+
+function finalInvs(idFact) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        document.getElementById('Facture').innerHTML = this.responseText;
+    }
+    xhttp.open("GET", "/velo/Invoice/finalyInvoices/"+idFact, true);
+    xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhttp.send();
+    
+}
+
+
+
+</script>
+
 
 

@@ -9,6 +9,7 @@ use models\Produit;
 class Patron extends Employee{ 
 
 
+    //Fonction qui affiche tous les personnels
     public function findAll_Personnel()
     {
 
@@ -19,7 +20,8 @@ class Patron extends Employee{
 
     }
 
-    //Pour add un personnel, le patron donnera en $value un objet : employee qui contient tout ce qu'il faut, donc on utilise les getteurs de firsname dans human, et getpass get role dans employee
+    //Pour add un personnel, le patron donnera en $value un objet : employee qui contient tout ce qu'il faut, donc on utilise les 
+    //getteurs de firsname dans human, et getpass get role dans employee
     public function addPersonnel(Employee $value)
     {
         $insert = $this->bdd->prepare('INSERT INTO personnel (prenom, id_password, id_role)
@@ -36,11 +38,12 @@ class Patron extends Employee{
 
     }
 
-    //Pour update un personnel, le patron donnera en $value un objet : employee qui contient tout ce qu'il faut, donc on utilise les getteurs de firsname dans human, et getpass get role dans employee
+    //Pour update un personnel, le patron donnera en $value un objet : employee qui contient tout ce qu'il faut, donc on utilise les
+    //  getteurs de firsname dans human, et getpass get role dans employee
     public function updatePersonnel(Employee $value)
     {
 
-        $insert = $this->bdd->prepare('UPDATE personnel SET prenom = ?, id_password = ?, id_role = ?
+        $insert = $this->bdd->prepare('UPDATE personnel SET prenom = ?, id_role = ?
                                         WHERE id = ?');
         $insert->execute(array($value->getFirstname(), $value->getPass(), $value->getRole(), $value->getId()));
 
@@ -48,9 +51,7 @@ class Patron extends Employee{
 
 
 
-
-
-    
+    //Fonction pour ajouter un produit    
     public function addProduit(Produit $value)
     {
         $insert = $this->bdd->prepare('INSERT INTO produits (designation, reference, price_ht, stock, alerte, id_tva)
@@ -60,6 +61,7 @@ class Patron extends Employee{
     }
 
 
+    //Fonction pour modifier un produit
     public function updateProduit(Produit $value)
     {
 
@@ -69,16 +71,24 @@ class Patron extends Employee{
 
     }
 
-    
+
+    //Fonction pour supprimer un produit quand il a été vendue donc modifier son stock uniquement (soustraction)
+    public function updateProduitWhenSold($stockSold, $id)
+    {
+
+        $insert = $this->bdd->prepare('UPDATE produits SET stock = stock - ?
+                                        WHERE id = ?');
+        $insert->execute(array($stockSold, $id));
+    }
+
+
+    //Fonction pour supprimer un produit
     public function deleteProduit(string $id)
     {
         $insert = $this->bdd->prepare('DELETE FROM produits WHERE id = ?');
         $insert->execute(array($id));
 
     }
-
-
-
 
 
  
@@ -143,6 +153,7 @@ class Patron extends Employee{
 
     }
     
+    
 
 //- Disposer d’un montant total des ventes HT par vendeur par mois. 
     public function getSalesByEmployeesByMonth()
@@ -157,6 +168,7 @@ class Patron extends Employee{
         return $select->fetchAll();
 
     }
+
 
     //Affiche le total des ventes par employés sur l'année depuis le 01 janvier
     public function getSalesByEmployeesByYear()

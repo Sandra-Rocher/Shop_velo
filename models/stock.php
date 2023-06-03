@@ -13,6 +13,8 @@ class Stock{
         $this->bdd = Database::getPDO();
     }
 
+
+    //Fonction pour trouver toute les produits
     public function findAll(){
         $select = $this->bdd->prepare("SELECT * FROM produits");
         $select->execute();
@@ -20,6 +22,7 @@ class Stock{
         return $select->fetchAll();
     }
 
+    //Fonction pour trouver ET afficher tous les produits
     public function findAllAndStore(){
         $select = $this->bdd->prepare("SELECT * FROM produits");
         $select->execute();

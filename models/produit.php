@@ -165,22 +165,28 @@ class Produit
 
 
 
+    //Fonction pour calculer la TVA (multiplication)
     public function calculateTTC()
     {
         return $this->prixHT * $this->tva;
     }
 
+
+    //Fonction pour calculer le total HT par apport à la quantité
     public function calculateTotalHT($quantite)
     {
         return $this->prixHT * $quantite;
     }
 
+
+    //Fonction pour calculer le total TTC par apport a la quantité
     public function calculateTotalTTC($resultTTC, $quantite)
     {
         return $resultTTC * $quantite;
     }
 
 
+    //Fonction qui permet de savoir si le produit est en stock sinon : alerte 
     public function isAlerteStock()
     {
         return ($this->stock > $this->stock_alerte) ? false : true;

@@ -22,7 +22,7 @@ class UtilsController{
 
 
 
-    //fonction connexion des employés
+    //Fonction connexion des employés
     public function connexion()
     {
         $prenom = (htmlspecialchars($_POST['prenom']));
@@ -41,7 +41,7 @@ class UtilsController{
     }
 
 
-    //fonction déconnexion des employés
+    //Fonction déconnexion des employés
     public function deconnexion()
     {
         session_destroy();

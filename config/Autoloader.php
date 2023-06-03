@@ -1,5 +1,6 @@
 <?php
 
+
 class Autoloader
 {
 
@@ -14,13 +15,14 @@ class Autoloader
             // pour attraper l antislash il faut en mettre deux, car le premier echappera les guillemets qui perturbe la ligne suivante
             $classname = str_replace("\\", "/", $classname);
 
-
+            //Si la page existe, on lui rajoute un .php
             if (file_exists($classname . ".php")) {
 
                 // je lui dit de rajouter un .php a la fin de $classname, classname c'est une page
                 require $classname . ".php";
                 
             } else {
+                //Page 404 : non trouvée
                 echo "autoloader erreur 404 $classname";
                 exit();
             }

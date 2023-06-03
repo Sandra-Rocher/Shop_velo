@@ -1,0 +1,85 @@
+
+<div class="container mt-5 mb-5 col-lg-7">
+    <div class="row">
+        <h1 class="text-center">Facture client</h1>
+                     
+            <div class="">
+                <?php $firstRow = $details[0] ?>
+
+                <h4 class="text-center border border-danger shadow-lg mt-3 mb-3">La pédale joyeuse</h4>
+                    <div class="mb-3 d-flex justify-content-around">
+                    <div class="text-center"> Vendeur : <?= $firstRow['personnelPrenom'] ?> </div> <div>Facture émise le : <?= $firstRow["dateFact"] ?></div>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-around">
+                        <div>3 Rue des Cyclistes </div> <div>13100 Aix En Provence</div>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-around">
+                        <div>Tél: 04 94 25 47 89 </div> <div>Email: pdj@gmail.fr</div>
+                    </div>
+                    
+        
+                            
+                <h4 class="text-center border border-danger shadow-lg mb-3">Client</h4>
+                    <div class="mb-3 d-flex justify-content-around">
+                        <div>Nom: <?= $firstRow["nom"] ?> </div> <div> Prénom: <?= $firstRow['clientPrenom'] ?></div>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-around">
+                        <div>Adresse: <?= $firstRow["adresse1"] ?> </div> <div>Complément d'adresse: <?= $firstRow["adresse2"] ?></div>
+                    </div>  
+                    <div class="mb-3 d-flex justify-content-around">
+                        <div>Code postal: <?= $firstRow["code_postal"] ?> </div> <div>Ville: <?= $firstRow["ville"] ?></div>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-around">
+                        <div>Tél: <?= $firstRow["telephone"] ?> </div> <div>Email: <?= $firstRow["email"] ?></div> 
+                    </div>
+                            
+                <h4 class="text-center border border-danger shadow-lg mb-3">Détail de la Commande</h4>
+                
+                <table class="table mb-3 border border-danger shadow-lg text-center">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Référence</th>
+                            <th>Quantité</th>
+                            <th>Prix HT</th>
+                            <th>TVA*</th>
+                        </tr>
+                    </thead>
+                    <tbody>         
+<?php foreach ($details as $detail) : ?>                                       
+                        <tr>
+                            <td><?= $detail["designation"] ?></td>
+                            <td><?= $detail["reference"] ?></td>
+                            <td><?= $detail["quantite"] ?></td>
+                            <td><?= $detail["price_ht"] ?> €</td>
+                            <td><?= $detail["id_tva"] ?> %</td>
+                        </tr>
+<?php endforeach; ?>             
+                    </tbody>
+                </table>
+                <p>* 1.1 = 10%, 1.2 = 20%</p>
+
+                <table class="table mb-3 border border-danger shadow-lg text-center">
+                    <thead>
+                        <tr>
+                            <th>Numéro de commande</th>
+                            <th>Prix Total HT</th>
+                            <th>Prix Total TCC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><?= $firstRow["idFact"] ?></td>
+                            <td><?= $firstRow["prix_ht"] ?> €</td>
+                            <td><?= $firstRow["prix_ttc"] ?> €</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="text-center border border-danger shadow-lg mb-3">Voir en PDF : <a href ="#"><i class="bi bi-filetype-pdf" style="font-size: 25px;"></i></a></h4>
+                       
+            </div>
+    </div>
+</div> 
+
+

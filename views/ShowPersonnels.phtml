@@ -1,10 +1,13 @@
 
+<?php
+    if(!empty($_SESSION['id']) && ($_SESSION['role'] == "boss")){
+?>
 
 
     <div class="container">
         <div class="row mx-auto col-lg-4 col-md-8 col-sm-12">
 
-            <table class="table mt-5 mb-5 border border-danger shadow-lg">
+            <table class="table mt-5 mb-5 border border-danger shadow-lg text-center">
                 <thead>
                     <tr>
                     <th scope="col">Personnel</th>
@@ -40,3 +43,8 @@ echo    '
 
 
 
+    <?php
+}else{ echo"<h4 class='text-center border border-danger shadow-lg mt-5 mb-3'>Vous n'avez pas les droits pour accéder à cette page</h4>";
+  
+    }
+?>

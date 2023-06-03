@@ -1,6 +1,5 @@
 <?php
 
-
 namespace models;
 
 
@@ -19,7 +18,7 @@ class Invoice{
     public function findAll_Invoices()
     {
 
-        $select = $this->bdd->prepare("SELECT *, facture.id AS factID, personnel.prenom, clients.nom
+        $select = $this->bdd->prepare("SELECT *, facture.id AS idFact, personnel.prenom, clients.nom
                                         FROM facture
                                         JOIN personnel ON facture.id_personnel = personnel.id
                                         JOIN clients ON facture.id_client = clients.id
@@ -32,6 +31,8 @@ class Invoice{
     }
 
 
+
+
     //Fonction pour inserer en bdd les factures
     public function addInvoiceFactOnBDD($totalHT, $totalTTC, $idClient, $idPersonnel)
     {
@@ -39,8 +40,7 @@ class Invoice{
                                         VALUES (?, ?, ?, ?) ');
         $insert->execute(array($totalHT, $totalTTC, $idClient, $idPersonnel));
 
-        $idFacture = $this->bdd->lastInsertId();
-        return $idFacture;
+        return $this->bdd->lastInsertId();
     }
 
     
@@ -52,4 +52,26 @@ class Invoice{
         $insert->execute(array($quantite, $id_produits, $idFacture));
     }
 
+
+
+    //Fonction qui affiche lors du click sur loupe la facture complète du client 
+    public function finalyInv($id){
+
+        $select = $this->bdd->prepare("SELECT *, personnel.prenom AS personnelPrenom, clients.prenom 
+                                                                AS clientPrenom, facture.id 
+                                                                AS idFact
+                                        FROM facture
+                                        JOIN ligne_facture ON facture.id = ligne_facture.id_facture
+                                        JOIN personnel ON facture.id_personnel = personnel.id 
+                                        JOIN clients ON facture.id_client = clients.id
+                                        JOIN produits ON ligne_facture.id_produits = produits.id 
+                                        WHERE facture.id = ?
+                                        ");
+        $select->execute(array($id));
+
+        return $select->fetchAll();
+
+    }
+
 }
+

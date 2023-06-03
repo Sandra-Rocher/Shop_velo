@@ -31,13 +31,12 @@ class AdminController{
             $result = $data->findAll_Personnel();
 
             $page = "views/ShowPersonnels.phtml";
-             
             require_once "views/Base.phtml";
         }
 
+
         //Fonction qui creer un personnel
         public function createPersonnel(){
-
 
             // Vérifier si des données ont été soumises via POST
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -62,18 +61,16 @@ class AdminController{
                 //Si aucun $_POST n'a été fait : il arrive direct ici et attends qu'on lui POST qqchose
                 $page = "views/CreatePersonnel.phtml";
 
-
                 $data = new Patron();
                 $result = $data->findAll_Personnel();
 
                 $page = "views/CreatePersonnel.phtml";
-
-        
                 require_once "views/Base.phtml";
             }
 
 
-            //fonction qui modifie un ou plusieurs personnel(s) en même temps
+
+            //Fonction qui modifie un ou plusieurs personnel(s) en même temps
             public function updatePersonnel(){
 
 
@@ -97,7 +94,6 @@ class AdminController{
                         
                         $patron->updatePersonnel($personnel);
                     }
- 
             
                     // Rediriger vers une page de confirmation ou effectuer d'autres actions après l'ajout du Personnel
                     header('Location: /velo/Admin/ShowPersonnels');
@@ -105,7 +101,6 @@ class AdminController{
                 }
             
                     $page = "views/CreatePersonnel.phtml";
-            
                     require_once "views/Base.phtml";
                 }
     
@@ -125,8 +120,7 @@ class AdminController{
             }
 
 
-
-    
+            //Fonction qui permet d'afficher les ventes dans la page Chiffres
             public function showSales(){
 
                 $data = new Patron();
@@ -143,7 +137,6 @@ class AdminController{
                 $SalesOfTheYear = $data->getSalesOfTheYear($id);
 
                 $page = "views/showSales.phtml";
-                 
                 require_once "views/Base.phtml";
             }
 

@@ -17,7 +17,6 @@ class ClientController{
         $result = $data->findAll_Client();
 
         $page = "views/ShowClient.phtml";
-
         require_once "views/Base.phtml";
     }
 
@@ -54,13 +53,10 @@ class ClientController{
 
         $page = "views/CreateClient.phtml";
 
-
         $data= new Client();
         $result = $data->findAll_Client();
 
         $page = "views/CreateClient.phtml";
-
-
         require_once "views/Base.phtml";
     }
 
@@ -101,12 +97,11 @@ class ClientController{
         }
     
             $page = "views/CreateClient.phtml";
-    
             require_once "views/Base.phtml";
         }
     
 
-        //fonction qui delete un client par son $id lû par le routing en [2] parametres newUrl
+        //Fonction qui delete un client par son $id lû par le routing en [2] parametres newUrl
         public function deleteClient($id){
 
             $data = new Client();

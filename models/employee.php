@@ -2,6 +2,7 @@
 
 namespace models;
 
+
 class Employee extends Human{
 
     protected $role;
@@ -82,7 +83,7 @@ class Employee extends Human{
 
 
 
-//TODO : creation de la facture par pdf... ici on cherche a rassembler les lignes_factures à leurs factures
+//On creer la facture client
     public function createInvoice($id)
     {
         $insert = $this->bdd->prepare('INSERT INTO facture (prix_ht, prix_ttc, id_client, id_personnel)');
@@ -91,6 +92,7 @@ class Employee extends Human{
 
     
 
+    //Fonction qui affiche tous les personnels 
     public function findEmployeeForConnexion($prenom)
     {
         $select = $this->bdd->prepare("SELECT * FROM personnel WHERE prenom = ?");
@@ -100,6 +102,7 @@ class Employee extends Human{
     }
 
 
+    //Fonction pour vérigier le password à la connexion
     public function checkPasswordFromEmployee($result, $pass)
     {
         if (password_verify($pass, $result["id_password"])) {

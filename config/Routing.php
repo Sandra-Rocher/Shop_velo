@@ -1,36 +1,26 @@
 <?php
 
-
+//Est dans le dossier config
 namespace config;
 
 // va dans le dossier controllers chercher admincontroller
 use controllers\AdminController;
-// use controllers\ClientController;
 
 
 class Routing
 {
 
-
     public function get()
     {
 
-        // si il y a ctrl dans l'url : je fais 
+        // si il y a ctrl dans l'url : il fait 
         if (isset($_GET['ctrl'])) {
 
 
-// if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_x_REQUESTED_WITH']) == 'xmlhttprequest') {
-// echo 'zoub';
-// die();
-// }
-
-
-
-
-            // comme on get dans l url ce qu'il y a apres ctrl, on htmlspecialchars 
+            // comme on get dans l url ce qu'il y a apres ctrl, on htmlspecialchars et stock dans $url
             $url = htmlspecialchars($_GET["ctrl"]);
 
-            // explode va analyser ce qu'il y a apres le / dans l $url qui est l url
+            // explode va analyser ce qu'il y a apres le / dans l $url qui est l url et stock dans $newUrl
             $newUrl = explode("/", $url);
 
             // en faisant ça, je tape dans mon url des mots entre / et il me les montre en arrayy
@@ -40,9 +30,8 @@ class Routing
             // ucfirst va passer la premiere lettre en majuscule, donc j obtiendrai AdminController si je tape 
             // localhost/shop/admin/users, il prendra admin, qui est le [0] grace a explode, et lui ajoutera .Controller au bout.
             $controllerName = "controllers\\" . ucfirst($newUrl[0]) . "Controller";
-            // en gros on a retapé va dans le dossier controllers, et chope AdminControllers.php
-
-
+            // en gros c'est va dans le dossier controllers, et chope AdminControllers.php
+            //Le .php vient du autoload
 
 
             // on a défini avant controllerName et methodName donc s'il les trouve dans shop/admin/index c'est ok, le else error 404
@@ -60,17 +49,20 @@ class Routing
                  // $controller->$methodName();
                 // var_dump($controller);
 
-
+                // Si il y a 3 arguments dans l url :
                 if (isset($newUrl[2])) {
 
+                    //J'explode entre les ; et je stock dans les $arg
                     $newUrlExploded = explode(";", $newUrl[2]);
                     if (count($newUrlExploded) == 3){
                         $arg1 = $newUrlExploded[0];
                         $arg2 = $newUrlExploded[1];
                         $arg3 = $newUrlExploded[2];
 
+                        //On déclenche le controller + fonction avec les 3 arguments ( ils sont attendus)
                         $controller->$methodName($arg1, $arg2, $arg3);
 
+                    //J'explode entre les ; et je stock dans les $arg
                     } else if (count($newUrlExploded) == 6){
                         $arg1 = $newUrlExploded[0];
                         $arg2 = $newUrlExploded[1];
@@ -79,17 +71,20 @@ class Routing
                         $arg5 = $newUrlExploded[4]; 
                         $arg6 = $newUrlExploded[5];
 
+                        //On déclenche le controller + fonction avec les 3 arguments ( ils sont attendus)
                         $controller->$methodName($arg1, $arg2, $arg3, $arg4, $arg5, $arg6);
 
-
+                    //Si il n'y a qu'un argument dans l url
                     } else if  (count($newUrlExploded) == 1)  {
 
+                        //On place le 3 eme argument dans $id
                         $id = $newUrl[2];
-                        
+                        //Controller concerné déclenche la fonction qui est à l'intérieur
                         $controller->$methodName($id);
                     }
                 
                 } else {
+                    //Controller concerné déclenche la fonction qui est à l'intérieur
                     $controller->$methodName();
                 }
 
@@ -107,11 +102,12 @@ class Routing
                 // et controller->methodName = ->index
 
             } else {
+                //Je n'ai pas trouvé la page dans le get après le ctrl donc 404
                 echo "error 404 ctrl " .$_GET["ctrl"];
             }
         } else {
-            // sinon : je dirige vers l accueil normal puisque l url affiche lcoalhost shop/ vide. On affichera donc la 
-            // view de la page index admin, pour ça je lui dis va voir dans la class admin controller, et declenche la function index
+            // sinon : je dirige vers l accueil puisque l url affiche localhost shop/ vide. On affichera donc la viex de la page
+            // index admin, pour ça je lui dis va voir dans la class admin controller, et declenche la function index = accueil
             $admin = new AdminController();
             $admin->index();
         }
