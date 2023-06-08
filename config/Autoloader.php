@@ -20,6 +20,9 @@ class Autoloader
 
                 // je lui dit de rajouter un .php a la fin de $classname, classname c'est une page
                 require $classname . ".php";
+               // On aurait pu aussi dire :
+            //    require_once $classname .= ".php";
+
                 
             } else {
                 //Page 404 : non trouvée

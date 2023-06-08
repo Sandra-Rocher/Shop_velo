@@ -35,14 +35,14 @@
         <?php 
           if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
             echo '<li class="nav-item">
-                    <a class="nav-link" href="Admin/showPersonnels">Personnels</a>
+                    <a class="nav-link" href="Admin/showPersonnels">Personnel</a>
                   </li>'; 
           } ?>
 
         <?php 
           if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
             echo '<li class="nav-item">
-                    <a class="nav-link" href="Admin/createPersonnel">Personnels<i class="bi bi-tools"></i></a>
+                    <a class="nav-link" href="Admin/createPersonnel">Personnel<i class="bi bi-tools"></i></a>
                   </li>'; 
           } ?>
 
@@ -84,7 +84,7 @@
         <?php 
           if(!empty($_SESSION["id"])) {
             echo '<li class="nav-item">
-                    <a class="nav-link" href="Invoice/createInvoice">Factures<i class="bi bi-tools"></i></a>
+                    <a class="nav-link" href="Invoice/createInvoice">Facture<i class="bi bi-tools"></i></a>
                   </li>'; 
           } ?>
 
