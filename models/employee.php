@@ -74,7 +74,7 @@ class Employee extends Human{
                                         FROM facture
                                         WHERE YEAR(dateFact) = YEAR(CURDATE()) 
                                         AND dateFact >= CONCAT(YEAR(CURDATE()), '-01-01')
-                                        AND dateFact <= CURDATE() 
+                                        AND DATE(dateFact) <= CURDATE()
                                         AND id_personnel = ?");
         $select->execute(array($id));
 
