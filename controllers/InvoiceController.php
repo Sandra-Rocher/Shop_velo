@@ -147,7 +147,18 @@ class InvoiceController{
         $page = "views/ShowFinalInvoice.phtml";
         require_once "views/Base.phtml";
 
-    }
+     }
+
+     public function showPDF($id){
+
+        $data = new Invoice;
+        $details = $data->finalyInv($id);
+
+        //$page = "views/ShowFinalInvoice.phtml"; Pas besoin car il target_blank
+        //require_once "views/Base.phtml"; Pas besoin car il target_blank aussi
+        require_once "fpdf.php";
+
+     }
 
 
 }

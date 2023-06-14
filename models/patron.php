@@ -122,10 +122,9 @@ class Patron extends Employee{
 //Affiche le total TVA collecté par mois
     public function getSalesOfStockOfTheMonthAndShowTVA()
     {
-        $select = $this->bdd->prepare("SELECT SUM(prix_ht) 
-                                        AS total_ht, SUM(prix_ttc) 
-                                        AS total_ttc, (SUM(prix_ttc) - SUM(prix_ht)) 
-                                        AS TVA_a_reverser
+        $select = $this->bdd->prepare("SELECT SUM(prix_ht) AS total_ht,
+                                         SUM(prix_ttc) AS total_ttc,
+                                         (SUM(prix_ttc) - SUM(prix_ht)) AS TVA_a_reverser
                                         FROM facture
                                         WHERE MONTH(facture.dateFact) = MONTH(CURDATE())");
         $select->execute();

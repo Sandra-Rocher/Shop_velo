@@ -20,3 +20,15 @@ $(document).ready(function() {
     $('#dialog-confirm').modal('show');
   });
 });
+
+
+
+
+//Possibilité d'évolution : TODO
+//Non supprésion de la facture si elle a - de 5 ans (pour archiver)
+//Correction modal.js
+//Bloquer le stock qui sort de la bdd sur la facture pour empécher le négatif
+//Réduire les 3 deletes a 1 seul avec $table
+//Mettre des images de vélos, fond d'écran animé, etc
+// Creer un input autosearch par name client pour trouver uniquement les factures qui lui appartienne
+//Facture en pdf bien sur
