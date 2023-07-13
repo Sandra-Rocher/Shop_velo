@@ -1,0 +1,54 @@
+
+
+//Possibilité d'évolution : TODO
+//Bloquer le stock qui sort de la bdd sur la facture pour empécher le négatif
+//Réduire les 3 deletes a 1 seul avec $table
+// Creer un input autosearch par name client pour trouver uniquement les factures qui lui appartienne
+
+
+
+
+//Explicatif sur htaccess : 
+
+    # ici, tout ce qui est après ctrl= on le prendras. le $1 le représente
+#ctrl aurait pu s'appeler toto
+
+# Ligne 1 : rewriteengine on.. Active le moteur de réécriture Cette directive active le moteur de réécriture d'URL. 
+# Elle indique au serveur web Apache d'activer la fonction de réécriture d'URL pour le répertoire où se trouve le fichier .htaccess.
+
+
+# Ligne 2 : req filename -f : Vérifie si le nom de fichier demandé n'est pas un fichier existant
+# Cette directive est une autre condition de réécriture. Elle vérifie si le chemin demandé correspond à un fichier existant sur le
+ # serveur. Si c'est le cas, la condition est satisfaite et la réécriture d'URL peut être appliquée. 
+ # L'opérateur "-f" signifie "est un fichier".
+
+
+# Ligne 3 : req filename -d : Vérifie si le nom de fichier demandé n'est pas un répertoire existant
+# Cette directive est une condition de réécriture. Elle spécifie une condition qui doit être remplie pour que la réécriture d'URL soit
+# appliquée. Dans ce cas, la condition vérifie si le chemin demandé par l'utilisateur n'est pas un répertoire existant. Si c'est le cas,
+#  la réécriture ne s'applique pas. L'opérateur "!-d" signifie "non un répertoire".
+
+
+
+# Ligne 4 rule :  Réécrit l'URL pour passer le chemin demandé en tant que paramètre de requête à index.php
+# ^ : Le symbole caret (^) indique le début du motif d'expression régulière. Il est utilisé pour spécifier que le motif recherché 
+# doit se trouver au début de la chaîne.
+
+# [NC,L] : Ce sont des indicateurs pour la directive RewriteRule. "NC" indique que la correspondance ne doit pas tenir compte de la
+#  casse (non sensible à la casse), et "L" indique que la règle doit être la dernière si elle est satisfaite, c'est-à-dire que
+# d'autres règles de réécriture ne doivent pas être appliquées après celle-ci.
+
+
+
+
+
+# Dans cette configuration, les directives RewriteCondsont utilisées pour vérifier si le nom de fichier demandé n'est pas un fichier 
+# régulier ( !-f) et n'est pas un répertoire ( !-d). Si ces deux conditions sont vérifiées, alors la directive RewriteRuleest appliquée.
+# La règle RewriteRulespécifique au motif ^(.*)$, qui correspond à n'importe quel chemin d'URL. Le chemin correspondant est souhaité et 
+# passé en tant que paramètre de requête ctrlà index.php. Les drapeaux [NC,L]à la fin de la règle signifient respectivement "no case" 
+# (NC) et "last" (L). Le drapeau NCrend le motif insensible à la casse, et le drapeau Lindique que c'est la dernière règle à traiter 
+# si elle correspond.
+# En résumé, cette configuration est couramment utilisée dans les applications web pour permettre des URL propres (clean URLs) ou 
+# pour implémenter un contrôleur frontal (front controller) où le chemin demandé est utilisé pour déterminer le contrôleur ou l'action 
+# à effectuer dans le fichier index.php.
+

@@ -1,9 +1,9 @@
 <?php
 
-//Je suis bien dans l'espace du dossier controllers
+
 namespace controllers;
 
-//J'ai besoin des données situées dans d'autres pages
+
 use models\Patron;
 use models\Employee;
 
@@ -11,15 +11,11 @@ use models\Employee;
 
 class AdminController{
 
+
+    //Fonction qui affiche l'accueil (connexion)
     public function index(){
 
-        
-        // session_start();
-
-        //Je mets dans la variable $page ce que contient accueil.phtml situé dans le dossier views
         $page = "views/Accueil.phtml";
-
-        //J'ajoute ce que contient la page base.phtml situé dans le dossier views
         require_once "views/Base.phtml";
 
     }

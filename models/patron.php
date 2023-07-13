@@ -39,13 +39,13 @@ class Patron extends Employee{
     }
 
     //Pour update un personnel, le patron donnera en $value un objet : employee qui contient tout ce qu'il faut, donc on utilise les
-    //  getteurs de firsname dans human, et getpass get role dans employee
+    //  getteurs de firsname dans human, et  get role dans employee
     public function updatePersonnel(Employee $value)
     {
 
         $insert = $this->bdd->prepare('UPDATE personnel SET prenom = ?, id_role = ?
                                         WHERE id = ?');
-        $insert->execute(array($value->getFirstname(), $value->getPass(), $value->getRole(), $value->getId()));
+        $insert->execute(array($value->getFirstname(), $value->getRole(), $value->getId()));
 
     }
 

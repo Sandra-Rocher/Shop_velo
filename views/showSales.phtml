@@ -1,4 +1,12 @@
 
+<style>
+    body {
+        background-image: url('public/images/velo112.avif');
+        background-size: cover;
+        }
+</style>
+
+
 
 <?php
     if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'personnel') {
@@ -7,10 +15,10 @@
 
     <div class="container col-lg-7">
     <div class="row">
-        <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes du mois pour <?php echo $_SESSION['prenom']?> :</p>
+        <p class="text-center bg-white fw-bold mt-5">Récapitulatif mensuel des ventes du mois pour <?php echo $_SESSION['prenom']?> :</p>
             <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                         <th scope="col">ID_Facture</th>
                         <th scope="col">Date</th>
                         <th scope="col">Total_ht</th>
@@ -24,7 +32,7 @@
                 <?php
                     // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                     foreach ($SalesOfTheMonth as $saleso) {
-                        echo '<tr>
+                        echo '<tr class="bg-white">
                                 <td> '.$saleso['id'].'</td>
                                 <td> '.$saleso['dateFact'].'</td>
                                 <td> '.$saleso['prix_ht'].'</td>
@@ -46,10 +54,10 @@
 
     <div class="container col-lg-7">
     <div class="row">
-        <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes de l'année pour <?php echo $_SESSION['prenom']?> :</p>
+        <p class="text-center fw-bold mt-5 bg-white">Récapitulatif mensuel des ventes de l'année pour <?php echo $_SESSION['prenom']?> :</p>
             <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                         <th scope="col">ID_Facture</th>
                         <th scope="col">Date</th>
                         <th scope="col">Total_ht</th>
@@ -63,7 +71,7 @@
                 <?php
                     // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                     foreach ($SalesOfTheYear as $sale) {
-                        echo '<tr>
+                        echo '<tr class="bg-white">
                                 <td> '.$sale['id'].'</td>
                                 <td> '.$sale['dateFact'].'</td>
                                 <td> '.$sale['prix_ht'].'</td>
@@ -94,10 +102,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
 <div class="container col-lg-7">
 <div class="row">
-    <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes du mois pour <?php echo $_SESSION['prenom']?> :</p>
+    <p class="text-center fw-bold mt-5 bg-white">Récapitulatif mensuel des ventes du mois pour <?php echo $_SESSION['prenom']?> :</p>
         <table class="table mb-5 border border-danger shadow-lg text-center">
             <thead>
-                <tr>
+                <tr class="bg-white">
                     <th scope="col">ID_Facture</th>
                     <th scope="col">Date</th>
                     <th scope="col">Total_ht</th>
@@ -111,7 +119,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
             <?php
                 // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                 foreach ($SalesOfTheMonth as $saleso) {
-                    echo '<tr>
+                    echo '<tr class="bg-white">
                             <td> '.$saleso['id'].'</td>
                             <td> '.$saleso['dateFact'].'</td>
                             <td> '.$saleso['prix_ht'].'</td>
@@ -133,10 +141,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
 <div class="container col-lg-7">
 <div class="row">
-    <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes de l'année pour <?php echo $_SESSION['prenom']?> :</p>
+    <p class="text-center fw-bold mt-5 bg-white">Récapitulatif mensuel des ventes de l'année pour <?php echo $_SESSION['prenom']?> :</p>
         <table class="table mb-5 border border-danger shadow-lg text-center">
             <thead>
-                <tr>
+                <tr class="bg-white">
                     <th scope="col">ID_Facture</th>
                     <th scope="col">Date</th>
                     <th scope="col">Total_ht</th>
@@ -150,7 +158,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
             <?php
                 // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                 foreach ($SalesOfTheYear as $sale) {
-                    echo '<tr>
+                    echo '<tr class="bg-white">
                             <td> '.$sale['id'].'</td>
                             <td> '.$sale['dateFact'].'</td>
                             <td> '.$sale['prix_ht'].'</td>
@@ -171,7 +179,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 <?php
     foreach($salesOfTheDay as $sal)
         echo' 
-        <div class ="container border border-danger mt-5 mb-5 col-lg-7"
+        <div class ="container border border-danger mt-5 mb-5 col-lg-7 bg-white"
             <div class="row">
                 <p class="text-center fw-bold mt-2 mb-2">Le total des ventes du jour est : '.$sal['Total'].' €</p>
             </div>
@@ -185,10 +193,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
 <div class="container col-lg-7">
     <div class="row">
-        <p class="text-center fw-bold mt-5">Récapitulatif mensuel des ventes par produit :</p>
+        <p class="text-center fw-bold mt-5 bg-white">Récapitulatif mensuel des ventes par produit :</p>
             <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                         <th scope="col">ID_Produit</th>
                         <th scope="col">Désignation</th>
                         <th scope="col">Quantité_vendue</th>
@@ -199,7 +207,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
                 <?php
                     // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                     foreach ($salesOfStockOfTheMonth as $sales) {
-                        echo '<tr>
+                        echo '<tr class="bg-white">
                                 <td> '.$sales['id_produits'].'</td>
                                 <td> '.$sales['designation'].'</td>
                                 <td> '.$sales['SUM(quantite)'].'</td>
@@ -218,10 +226,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
     
 <div class="container col-lg-7">
     <div class="row">
-        <p class="text-center fw-bold mt-5">Total TVA collectée par mois :</p>
+        <p class="text-center fw-bold mt-5 bg-white">Total TVA collectée par mois :</p>
             <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                         <th scope="col">Total_ht</th>
                         <th scope="col">Total_ttc</th>
                         <th scope="col">TVA_à_reverser</th>
@@ -232,7 +240,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
                 <?php
                     // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                     foreach ($SalesOfStockOfTheMonthAndShowTVA as $salesof) {
-                        echo '<tr>
+                        echo '<tr class="bg-white">
                                 <td> '.$salesof['total_ht'].'</td>
                                 <td> '.$salesof['total_ttc'].'</td>
                                 <td> '.$salesof['TVA_a_reverser'].'</td>
@@ -252,10 +260,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
     
 <div class="container col-lg-7">
     <div class="row">
-        <p class="text-center fw-bold mt-5">Etat cumulé des ventes par produit depuis le premier janvier de l’année en cours :</p>
+        <p class="text-center fw-bold mt-5 bg-white">Etat cumulé des ventes par produit depuis le premier janvier de l’année en cours :</p>
             <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                         <th scope="col">ID_Produit</th>
                         <th scope="col">Désignation</th>
                         <th scope="col">Total</th>
@@ -266,7 +274,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
                 <?php
                     // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                     foreach ($SalesOfStockOfTheYear as $salesofThe) {
-                        echo '<tr>
+                        echo '<tr class="bg-white">
                                 <td> '.$salesofThe['id_produits'].'</td>
                                 <td> '.$salesofThe['designation'].'</td>
                                 <td> '.$salesofThe['SUM(quantite)'].'</td>
@@ -285,10 +293,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
 
     <div class="container col-lg-7">
     <div class="row">
-        <p class="text-center fw-bold mt-5">Montant total des ventes HT par vendeur par mois :</p>
+        <p class="text-center fw-bold mt-5 bg-white">Montant total des ventes HT par vendeur par mois :</p>
             <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                         <th scope="col">ID_Personnel</th>
                         <th scope="col">Prénom</th>
                         <th scope="col">Total</th>
@@ -299,7 +307,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
                 <?php
                     // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                     foreach ($SalesByEmployeesByMonth as $salesofTheMonth) {
-                        echo '<tr>
+                        echo '<tr class="bg-white">
                                 <td> '.$salesofTheMonth['id_personnel'].'</td>
                                 <td> '.$salesofTheMonth['prenom'].'</td>
                                 <td> '.$salesofTheMonth['SUM(prix_ht)'].'</td>
@@ -318,10 +326,10 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
     
     <div class="container col-lg-7">
     <div class="row">
-        <p class="text-center fw-bold mt-5">Montant total des ventes HT par vendeur sur l'année depuis le 01 janvier :</p>
+        <p class="text-center fw-bold mt-5 bg-white">Montant total des ventes HT par vendeur sur l'année depuis le 01 janvier :</p>
             <table class="table mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                         <th scope="col">ID_Personnel</th>
                         <th scope="col">Prénom</th>
                         <th scope="col">Total</th>
@@ -332,7 +340,7 @@ if(!empty($_SESSION["id"]) && $_SESSION["role"] == 'boss') {
                 <?php
                     // Boucler sur les résultats et afficher chaque ligne dans un tableau HTML
                     foreach ($SalesByEmployeesByYear as $salesofTheYear) {
-                        echo '<tr>
+                        echo '<tr class="bg-white">
                                 <td> '.$salesofTheYear['id_personnel'].'</td>
                                 <td> '.$salesofTheYear['prenom'].'</td>
                                 <td> '.$salesofTheYear['SUM(prix_ht)'].'</td>

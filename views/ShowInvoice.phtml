@@ -1,4 +1,9 @@
-
+<style>
+    body {
+        background-image: url('public/images/velo22.jpg');
+        background-size: cover;
+        }
+</style>
 
 
 <div class="container">
@@ -6,7 +11,7 @@
 
             <table class="table mt-5 mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                     <th scope="col">ID</th>
                     <th scope="col">Date_Facture</th>
                     <th scope="col">Prix_HT</th>
@@ -27,7 +32,7 @@ foreach($result as $res){
 echo    '
 
                 <tbody>
-                    <tr>
+                    <tr class="bg-white">
                     <td>'.$res['idFact'].'</td>
                     <td>'.$res['dateFact'].'</td>
                     <td>'.$res['prix_ht'].'</td>

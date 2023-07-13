@@ -1,3 +1,9 @@
+<style>
+    body {
+        background-image: url('public/images/velo21.jpg');
+        background-size: cover;
+        }
+</style>
 
 
     <div class="container">
@@ -5,7 +11,7 @@
 
             <table class="table mt-5 mb-5 border border-danger shadow-lg text-center">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                     <th scope="col">ID</th>
                     <th scope="col">Désignation</th>
                     <th scope="col">Référence</th>
@@ -23,7 +29,7 @@ foreach($result as $res){
 echo    '
 
                 <tbody>
-                    <tr '.($res->isAlerteStock() ? 'class="bg-danger"' : '').'>
+                    <tr '.($res->isAlerteStock() ? 'class="bg-danger"' : 'class="bg-white"').'>
                         <td>'.$res->getId_Produit().'</td>
                         <td>'.$res->getDesignation().'</td>
                         <td>'.$res->getReference().'</td>

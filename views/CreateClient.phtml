@@ -1,3 +1,9 @@
+<style>
+    body {
+        background-image: url('public/images/velo106.avif');
+        background-size: cover;
+        }
+</style>
 
 
 <!-- Modal de confirmation de suppression d'article, script modal.js -->
@@ -30,7 +36,7 @@
 
 
 
-            <div class="container col-sm-12 col-md-8 col-lg-4 border border-danger shadow-lg mb-5 mt-5">
+            <div class="container col-sm-12 col-md-8 col-lg-4 border border-danger shadow-lg mb-5 mt-5 bg-white">
                 <div class="row">
                     <div class="text-center mt-4">
                         <h2 class="text-center">Ajouter un client</h2>
@@ -64,7 +70,7 @@
 <div class="container">
         <div class="row mx-auto">
              <form class="form-group" action="Client\updateClient" method="POST">
-                <table class="table mt-5 mb-5 border border-danger shadow-lg">
+                <table class="table mt-5 mb-5 border border-danger shadow-lg bg-white">
                     <thead>
                         <tr>
                         <th scope="col">ID</th>
@@ -114,34 +120,7 @@ echo    '
 </div> 
 
 
-        
+    <!-- Modal de suppression -->
+    <script src="./public/modal.js"></script>
 
-
-
-    <!-- TODO script public .. ne marche pas -->
-    <!-- <script src="../public/modal.js"></script> -->
-
-    <script type="text/javascript">
-
-    $(document).ready(function() {
-  var theHREF;
-
-  $('#dialog-confirm').on('show.bs.modal', function (event) {
-    var modal = $(this);
-    modal.find('.modal-body p').text('Etes-vous sûr de vouloir supprimer cet élément ?');
-    modal.find('#confirm-yes').click(function() {
-      modal.modal('hide');
-      window.setTimeout(function(){
-        window.location.href = theHREF;
-      }, 100);
-    });
-  });
-
-  $("a.confirmModal").click(function(e) {
-    e.preventDefault();
-    theHREF = $(this).attr("href");
-    $('#dialog-confirm').modal('show');
-  });
-});
-
-</script>
+  

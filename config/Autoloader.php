@@ -7,25 +7,26 @@ class Autoloader
     public static function Autoload()
     {
         
+        //On démarre la session start pour tout le site
         session_start();
         
-        // il va attraper un $classname et le callback
+        // recupère un $classname et le callback
         spl_autoload_register(function ($classname) {
 
-            // pour attraper l antislash il faut en mettre deux, car le premier echappera les guillemets qui perturbe la ligne suivante
+            // transforme \ en / (on met double // à cause de l'échappé)
             $classname = str_replace("\\", "/", $classname);
 
             //Si la page existe, on lui rajoute un .php
             if (file_exists($classname . ".php")) {
 
-                // je lui dit de rajouter un .php a la fin de $classname, classname c'est une page
+                //rajouter un .php a la fin de $classname, classname étant une page
                 require $classname . ".php";
                // On aurait pu aussi dire :
-            //    require_once $classname .= ".php";
+                //require_once $classname .= ".php";
 
                 
             } else {
-                //Page 404 : non trouvée
+                //sinon Page 404 : non trouvée
                 echo "autoloader erreur 404 $classname";
                 exit();
             }

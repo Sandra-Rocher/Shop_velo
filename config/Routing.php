@@ -1,9 +1,7 @@
 <?php
 
-//Est dans le dossier config
 namespace config;
 
-// va dans le dossier controllers chercher admincontroller
 use controllers\AdminController;
 
 
@@ -13,37 +11,33 @@ class Routing
     public function get()
     {
 
-        // si il y a ctrl dans l'url : il fait 
+        //vérifie si il y a dans qchose dans ctrl en get dans l'url
         if (isset($_GET['ctrl'])) {
 
 
-            // comme on get dans l url ce qu'il y a apres ctrl, on htmlspecialchars et stock dans $url
+            //sécurise la données et la place dans la variable $url
             $url = htmlspecialchars($_GET["ctrl"]);
 
-            // explode va analyser ce qu'il y a apres le / dans l $url qui est l url et stock dans $newUrl
+            // explode va analyser ce qu'il y a entre chaque / dans l $url qui est l url et stock dans $newUrl
             $newUrl = explode("/", $url);
 
             // en faisant ça, je tape dans mon url des mots entre / et il me les montre en arrayy
-            // par exemple : localhost/shop/admin/users/1 = arrayy [0]= stringg admin, [1]= stringg users
-            // var_dump($newUrl);
+            // par exemple : localhost/velo/admin/users/1 = arrayy [0]= stringg admin, [1]= stringg users etc en var_dump($newUrl);
 
             // ucfirst va passer la premiere lettre en majuscule, donc j obtiendrai AdminController si je tape 
-            // localhost/shop/admin/users, il prendra admin, qui est le [0] grace a explode, et lui ajoutera .Controller au bout.
+            // localhost/velo/admin/users, il prendra admin, qui est le [0] grace a explode, et lui ajoutera .Controller au bout.
             $controllerName = "controllers\\" . ucfirst($newUrl[0]) . "Controller";
-            // en gros c'est va dans le dossier controllers, et chope AdminControllers.php
-            //Le .php vient du autoload
+            // en résumé : il va dans le dossier controllers, trouver AdminControllers.php (.php grâce à l'autoload)
 
 
-            // on a défini avant controllerName et methodName donc s'il les trouve dans shop/admin/index c'est ok, le else error 404
-            // apparaitra si on fait shop/admin/index
+            // on a défini avant controllerName et methodName donc s'il les trouve dans velo/admin/index c'est ok, le else error 404
+            // apparaitra si on fait velo/admin/index
             if (isset($newUrl[1])) {
 
-
-                $methodName = strtolower($newUrl[1]);
                 // maintenant tu met en minuscule index qui est dans le [1]
+                $methodName = strtolower($newUrl[1]);
 
-
-                // nouveau controllername
+                // nouveau controllername, instanciation
                 $controller = new $controllerName();
 
                  // $controller->$methodName();
@@ -79,7 +73,7 @@ class Routing
 
                         //On place le 3 eme argument dans $id
                         $id = $newUrl[2];
-                        //Controller concerné déclenche la fonction qui est à l'intérieur
+                        //Controller concerné déclenche la fonction qui est à l'intérieur (avec l'$id)
                         $controller->$methodName($id);
                     }
                 
@@ -92,9 +86,9 @@ class Routing
                 // on a donc la méthode simple et facile else (en dessous) qui dit va chercher la page admincontroller 
                 // et declenche la fonction index
 
-                // et on a le if (au dessus) ou l'on réecrit mot par mot lettre par lettre la meme chose !!!!
+                // et on a le if (au dessus) ou l'on réecrit mot par mot lettre par lettre la meme chose..
                 // on va chercher le dossier controller // se transforme en / et l url newUrl[0] c'est le mot admin, je le transform
-                // en Admin avec ucfirst, et je lui rajoute .Controller donc .phppp
+                // en Admin avec ucfirst, et je lui rajoute .Controller donc .php
 
                 // ensuite je fais strtolower de newurl[1] donc index se met en minuscule
 
@@ -102,12 +96,11 @@ class Routing
                 // et controller->methodName = ->index
 
             } else {
-                //Je n'ai pas trouvé la page dans le get après le ctrl donc 404
+                //sinon error 404 
                 echo "error 404 ctrl " .$_GET["ctrl"];
             }
         } else {
-            // sinon : je dirige vers l accueil puisque l url affiche localhost shop/ vide. On affichera donc la viex de la page
-            // index admin, pour ça je lui dis va voir dans la class admin controller, et declenche la function index = accueil
+            //sinon dirige quoi qu'il arrive vers l'accueil (connexion)
             $admin = new AdminController();
             $admin->index();
         }
