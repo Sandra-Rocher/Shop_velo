@@ -57,7 +57,7 @@ class StockController{
         
         
             // Rediriger vers une page de confirmation ou effectuer d'autres actions après l'ajout du Produit
-            header('Location: /velo/Stock/showStock');
+            header('Location: /velo/Stock/ShowStock');
             exit;
         }
         //Si aucun post n'a été fait, on dirige ainsi :
@@ -103,7 +103,7 @@ class StockController{
             }
         
             // Rediriger vers une page de confirmation ou effectuer d'autres actions après l'ajout du Produit
-            header('Location: /velo/Stock/showStock');
+            header('Location: /velo/Stock/ShowStock');
             exit;
         }
         
@@ -118,7 +118,7 @@ class StockController{
         $data = new Patron();
         $data->deleteProduit($id);
 
-        header('Location: /velo/Stock/showStock');
+        header('Location: /velo/Stock/ShowStock');
         exit;
         
         require_once "views/Base.phtml";

@@ -32,7 +32,7 @@ class UtilsController{
         $result = $myEmployee->findEmployeeForConnexion($prenom);
 
         if ($myEmployee->checkPasswordFromEmployee($result, $pass)) {
-            header("Location: ../Stock/showStock");
+            header("Location: ../Stock/ShowStock");
         } else {
             echo "Mauvais login ou mot de passe";
             $page = "views/Accueil.phtml";

@@ -47,7 +47,7 @@ class ClientController{
     $client->addClient();
 
     // Rediriger vers une page
-    header('Location: /velo/Client/showClient');
+    header('Location: /velo/Client/ShowClient');
     exit;
 }
 
@@ -92,7 +92,7 @@ class ClientController{
             }
     
             // Rediriger vers une page
-            header('Location: /velo/Client/showClient');
+            header('Location: /velo/Client/ShowClient');
             exit;
         }
     
@@ -107,7 +107,7 @@ class ClientController{
             $data = new Client();
             $data->deleteClient($id);
 
-            header('Location: /velo/Client/showClient');
+            header('Location: /velo/Client/ShowClient');
             exit;
             
             require_once "views/Base.phtml";

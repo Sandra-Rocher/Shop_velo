@@ -108,7 +108,7 @@ class AdminController{
                 $data = new Patron();
                 $data->deletePersonnel($id);
     
-                header('Location: /velo/Admin/showPersonnels');
+                header('Location: /velo/Admin/ShowPersonnels');
                 exit;
                 
                 require_once "views/Base.phtml";

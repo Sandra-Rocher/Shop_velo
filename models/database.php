@@ -12,6 +12,7 @@ class Database {
     
         try {
             return new PDO('mysql:host=localhost;dbname=velo', 'root', '');
+            
 
         } catch(PDOException $e) {
             die('Erreur : '.$e->getMessage());
