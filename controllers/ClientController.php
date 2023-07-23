@@ -3,8 +3,8 @@
 namespace controllers;
 
 
-use \models\client;
-// use \models\patron;
+use \models\Client;
+// use \models\Patron;
 
 
 class ClientController{

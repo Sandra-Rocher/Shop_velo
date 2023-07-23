@@ -2,10 +2,10 @@
 
 namespace controllers;
 
-use \models\database;
-use \models\stock;
-use \models\produit;
-use \models\patron;
+use \models\Database;
+use \models\Stock;
+use \models\Produit;
+use \models\Patron;
 
 
 class StockController{

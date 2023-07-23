@@ -3,8 +3,8 @@
 namespace controllers;
 
 
-use \models\database;
-use \models\employee;
+use \models\Database;
+use \models\Employee;
 
 
 class UtilsController{

@@ -132,7 +132,7 @@ class AdminController{
                 $SalesOfTheMonth = $data->getSalesOfTheMonth($id);
                 $SalesOfTheYear = $data->getSalesOfTheYear($id);
 
-                $page = "views/showSales.phtml";
+                $page = "views/ShowSales.phtml";
                 require_once "views/Base.phtml";
             }
 

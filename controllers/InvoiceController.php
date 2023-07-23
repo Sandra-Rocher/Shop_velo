@@ -2,12 +2,12 @@
 
 namespace controllers;
 
-use \models\database;
-use \models\stock;
-use \models\produit;
-use \models\patron;
-use \models\client;
-use \models\invoice;
+use \models\Database;
+use \models\Stock;
+use \models\Produit;
+use \models\Patron;
+use \models\Client;
+use \models\Invoice;
 
 
 class InvoiceController{
