@@ -133,7 +133,7 @@ class InvoiceController{
         }
     
         //Redirige
-        $page = "views/showInvoice.phtml";
+        $page = "views/ShowInvoice.phtml";
         require_once "views/Base.phtml";
      }
 

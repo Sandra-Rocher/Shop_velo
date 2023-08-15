@@ -107,7 +107,7 @@ class StockController{
             exit;
         }
         
-        $page = "views/createStock.phtml";
+        $page = "views/CreateStock.phtml";
         require_once "views/Base.phtml";
     }
 
