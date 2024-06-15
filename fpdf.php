@@ -126,7 +126,6 @@ $pdf->Cell(25, 10, ''.$details[0]["prix_ttc"].' €', 1, 1, 'C');
 
 
 //Création du Nom du fichier
-$nom = "testicule.pdf";
 $nom = 'Facture-'.$details[0]['idFact'].'-'.$details[0]['nom'].'-'.$details[0]['clientPrenom'].'.pdf';
 //Envoie le document : Création du pdf
 $pdf->Output($nom, 'I');
