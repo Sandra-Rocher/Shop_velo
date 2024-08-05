@@ -15,7 +15,7 @@ class Routing
         if (isset($_GET['ctrl'])) {
 
 
-            //sécurise la données et la place dans la variable $url
+            //sécurise les données et la place dans la variable $url
             $url = htmlspecialchars($_GET["ctrl"]);
 
             // explode va analyser ce qu'il y a entre chaque / dans l $url qui est l url et stock dans $newUrl
@@ -65,7 +65,7 @@ class Routing
                         $arg5 = $newUrlExploded[4]; 
                         $arg6 = $newUrlExploded[5];
 
-                        //On déclenche le controller + fonction avec les 3 arguments ( ils sont attendus)
+                        //On déclenche le controller + fonction avec les 6 arguments (ils sont attendus)
                         $controller->$methodName($arg1, $arg2, $arg3, $arg4, $arg5, $arg6);
 
                     //Si il n'y a qu'un argument dans l url
